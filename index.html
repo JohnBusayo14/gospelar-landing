@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gospelar — GOFAMINT Sunday School App</title>
+<meta name="description" content="Gospelar is the official GOFAMINT Sunday School companion: weekly lessons, hymns, quizzes, and class management for teachers and students across English, Yorùbá, Igbo, and Hausa.">
+<link rel="canonical" href="https://www.gospelar.com/">
+<link rel="icon" href="/favicon.ico">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:title" content="Gospelar — GOFAMINT Sunday School App">
+<meta property="og:description" content="Weekly Sunday School lessons, hymns, and class management — built for GOFAMINT churches.">
+<meta property="og:url" content="https://www.gospelar.com/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.gospelar.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Inter — clean, neutral, pairs with the dashboard typography. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --blue:        #1A56DB;
+  --blue-dark:   #1E40AF;
+  --blue-deeper: #1E3A8A;
+  --blue-light:  #EFF6FF;
+  --blue-soft:   rgba(26,86,219,.08);
+  --text:        #0F172A;
+  --text-soft:   #1E293B;
+  --muted:       #64748B;
+  --border:      #E2E8F0;
+  --bg:          #FFFFFF;
+  --surface:     #F8FAFC;
+  --green:       #10B981;
+  --orange:      #F97316;
+  --shadow-sm:   0 1px 2px rgba(15,23,42,.04);
+  --shadow-md:   0 4px 14px rgba(15,23,42,.06);
+  --shadow-lg:   0 12px 32px rgba(15,23,42,.10);
+  --shadow-blue: 0 12px 32px rgba(26,86,219,.30);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv11" 1, "ss01" 1;
+  line-height: 1.55;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+/* ── NAV ───────────────────────────────────────────────────────────────── */
+nav { position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 50; }
+nav .container { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: -0.3px; color: var(--text); }
+.logo:hover { text-decoration: none; }
+.logo-mark { width: 34px; height: 34px; border-radius: 9px; background: var(--blue); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 17px; box-shadow: var(--shadow-sm); }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links > a { color: var(--muted); font-weight: 600; font-size: 14px; }
+.nav-links > a:hover { color: var(--text); text-decoration: none; }
+
+/* Sign-in dropdown */
+.signin-wrap { position: relative; }
+.signin-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; border: 0; padding: 8px 4px;
+  font: inherit; font-weight: 600; font-size: 14px; color: var(--muted); cursor: pointer;
+}
+.signin-toggle:hover { color: var(--text); }
+.signin-toggle .caret { font-size: 10px; transition: transform .15s ease; }
+.signin-wrap.open .signin-toggle .caret { transform: rotate(180deg); }
+.signin-menu {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  min-width: 240px; background: #fff; border: 1px solid var(--border); border-radius: 14px;
+  box-shadow: var(--shadow-lg); padding: 8px;
+  display: none;
+}
+.signin-wrap.open .signin-menu { display: block; }
+.signin-menu a {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 12px; border-radius: 10px;
+  color: var(--text);
+}
+.signin-menu a:hover { background: var(--surface); text-decoration: none; }
+.signin-menu .si-icon { font-size: 22px; }
+.signin-menu .si-title { font-weight: 700; font-size: 14px; }
+.signin-menu .si-sub   { font-weight: 500; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 11px; font-weight: 700; font-size: 14px; transition: transform .12s ease, box-shadow .2s ease, background .15s ease; cursor: pointer; border: 0; font-family: inherit; }
+.btn:hover { text-decoration: none; }
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: var(--shadow-blue); }
+.btn-ghost   { color: var(--text); border: 1.5px solid var(--border); background: #fff; }
+.btn-ghost:hover { background: var(--surface); border-color: var(--blue); color: var(--blue); }
+.btn-lg { padding: 14px 26px; font-size: 15px; }
+
+/* ── HERO ──────────────────────────────────────────────────────────────── */
+.hero { padding: 80px 0 90px; background: linear-gradient(180deg, var(--blue-light) 0%, #fff 100%); position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute; top: -120px; right: -120px;
+  width: 380px; height: 380px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,86,219,.18), transparent 70%);
+  pointer-events: none;
+}
+.hero .container { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; position: relative; }
+.hero .eyebrow { display: inline-block; padding: 6px 14px; background: rgba(26,86,219,.12); color: var(--blue); border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .8px; margin-bottom: 24px; text-transform: uppercase; }
+.hero h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 900; letter-spacing: -1.4px; line-height: 1.08; margin-bottom: 22px; }
+.hero h1 .accent { color: var(--blue); }
+.hero p.lead { font-size: 17.5px; color: var(--muted); max-width: 540px; margin-bottom: 32px; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 28px; margin-top: 42px; flex-wrap: wrap; }
+.hero-stat .num { font-size: 26px; font-weight: 900; letter-spacing: -0.6px; }
+.hero-stat .lbl { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+
+/* Hero image — two-stack layout with subtle elevation */
+.hero-art { position: relative; }
+.hero-art .frame {
+  position: relative; aspect-ratio: 4/5;
+  border-radius: 22px; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+.hero-art .frame img { width: 100%; height: 100%; object-fit: cover; }
+.hero-art .floating-card {
+  position: absolute; right: -22px; bottom: 28px;
+  background: #fff; border: 1px solid var(--border); border-radius: 14px;
+  padding: 14px 16px; box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 12px;
+  max-width: 220px;
+}
+.hero-art .fc-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(16,185,129,.18); }
+.hero-art .fc-text .fc-title { font-size: 13px; font-weight: 700; }
+.hero-art .fc-text .fc-sub   { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+/* ── ROLES ─────────────────────────────────────────────────────────────── */
+section.roles { padding: 90px 0; }
+.section-title { text-align: center; margin-bottom: 56px; }
+.section-title .eyebrow-sm { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 1.4px; color: var(--blue); text-transform: uppercase; margin-bottom: 12px; }
+.section-title h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.9px; line-height: 1.15; margin-bottom: 12px; }
+.section-title p { color: var(--muted); font-size: 17px; max-width: 560px; margin: 0 auto; }
+.roles-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.role {
+  border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
+  background: #fff; transition: transform .18s ease, box-shadow .25s ease, border-color .15s ease;
+  display: flex; flex-direction: column;
+}
+.role:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(26,86,219,.30); }
+.role-img { aspect-ratio: 16/10; overflow: hidden; }
+.role-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.role:hover .role-img img { transform: scale(1.04); }
+.role-body { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; }
+.role .pill { align-self: flex-start; padding: 4px 10px; background: var(--blue-soft); color: var(--blue); border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; margin-bottom: 12px; }
+.role h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 8px; }
+.role p { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.role .role-cta { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-weight: 700; font-size: 14px; }
+.role .role-cta .arr { transition: transform .15s ease; }
+.role:hover .role-cta .arr { transform: translateX(3px); }
+
+/* ── IMAGE BAND ─────────────────────────────────────────────────────────── */
+.band { position: relative; height: 360px; overflow: hidden; }
+.band img { width: 100%; height: 100%; object-fit: cover; }
+.band::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,23,42,.78) 0%, rgba(15,23,42,.55) 50%, rgba(15,23,42,.30) 100%); }
+.band .container { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: center; color: #fff; }
+.band h2 { font-size: clamp(26px, 3.6vw, 36px); font-weight: 800; letter-spacing: -0.8px; max-width: 600px; line-height: 1.15; margin-bottom: 14px; }
+.band p { font-size: 16px; max-width: 540px; opacity: .92; }
+
+/* ── FEATURES ───────────────────────────────────────────────────────────── */
+section.features { padding: 100px 0; background: var(--surface); }
+.grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.card {
+  padding: 28px; background: #fff; border: 1px solid var(--border); border-radius: 18px;
+  transition: transform .15s ease, box-shadow .25s ease;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.card .icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; margin-bottom: 18px; }
+.card .icon.blue   { background: var(--blue-light); }
+.card .icon.green  { background: #ECFDF5; }
+.card .icon.orange { background: #FFF7ED; }
+.card h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.2px; margin-bottom: 10px; }
+.card p { color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+
+/* ── DOWNLOAD STRIP ─────────────────────────────────────────────────────── */
+.download {
+  padding: 90px 0; background: linear-gradient(135deg, var(--blue) 0%, var(--blue-deeper) 100%); color: #fff;
+  position: relative; overflow: hidden;
+}
+.download::before {
+  content: ''; position: absolute; top: -200px; left: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.12), transparent 65%);
+}
+.download .container { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; position: relative; }
+.download h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: -0.8px; margin-bottom: 14px; line-height: 1.15; }
+.download p { color: rgba(255,255,255,.88); font-size: 16.5px; margin-bottom: 28px; max-width: 540px; }
+.store-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.store-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 12px 18px; border-radius: 12px; background: #0F172A; color: #fff;
+  border: 1px solid rgba(255,255,255,.12);
+  transition: transform .12s ease, background .15s ease;
+  text-decoration: none;
+}
+.store-btn:hover { background: #000; transform: translateY(-1px); text-decoration: none; }
+.store-btn .ico { font-size: 22px; }
+.store-btn .small { font-size: 10.5px; opacity: .8; line-height: 1.2; letter-spacing: .4px; text-transform: uppercase; }
+.store-btn .big   { font-size: 16px; font-weight: 700; line-height: 1.1; margin-top: 2px; }
+.dl-side { position: relative; }
+.dl-side .frame { aspect-ratio: 1/1; border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.15); box-shadow: var(--shadow-lg); }
+.dl-side .frame img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── LANGUAGES STRIP ────────────────────────────────────────────────────── */
+.lang-strip { padding: 56px 0; background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.lang-strip .container { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+.lang { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--muted); font-size: 15px; }
+.lang .flag { font-size: 22px; }
+
+/* ── FOOTER ─────────────────────────────────────────────────────────────── */
+footer { padding: 56px 0 44px; background: var(--surface); border-top: 1px solid var(--border); }
+footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+footer .links { display: flex; gap: 24px; flex-wrap: wrap; }
+footer .links a { color: var(--muted); font-size: 14px; font-weight: 600; }
+footer .links a:hover { color: var(--text); text-decoration: none; }
+footer .copy { color: var(--muted); font-size: 13px; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero .container, .download .container { grid-template-columns: 1fr; gap: 36px; }
+  .hero-art { order: -1; max-width: 420px; margin: 0 auto; }
+  .hero-art .floating-card { right: 8px; }
+  .dl-side { display: none; }
+  .band { height: 300px; }
+}
+@media (max-width: 640px) {
+  .nav-links > a:not(.btn) { display: none; }
+  .signin-wrap { display: none; }
+  .hero { padding: 56px 0 64px; }
+  section.features, section.roles, .download { padding: 72px 0; }
+  .hero-stats { gap: 18px; margin-top: 28px; }
+  footer .container { justify-content: center; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     NAV
+     ───────────────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <a href="/" class="logo"><span class="logo-mark">G</span> Gospelar</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="/about">About</a>
+
+      <!-- Sign-in dropdown — toggles open on click. -->
+      <div class="signin-wrap" id="signin-wrap">
+        <button class="signin-toggle" type="button" onclick="toggleSignin()" aria-haspopup="menu" aria-expanded="false">
+          Sign in <span class="caret">▼</span>
+        </button>
+        <div class="signin-menu" role="menu">
+          <a href="https://church.gospelar.com" role="menuitem">
+            <span class="si-icon">⛪</span>
+            <span>
+              <div class="si-title">Church admin</div>
+              <div class="si-sub">Per-church insights &amp; classes</div>
+            </span>
+          </a>
+          <a href="https://admin.gospelar.com" role="menuitem">
+            <span class="si-icon">🛡️</span>
+            <span>
+              <div class="si-title">Main admin</div>
+              <div class="si-sub">Content, approvals &amp; system</div>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <a href="/app" class="btn btn-primary">Get the App</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     HERO
+     ───────────────────────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="container">
+    <div>
+      <span class="eyebrow">GOFAMINT Sunday School</span>
+      <h1>Sunday School, <span class="accent">in your pocket.</span></h1>
+      <p class="lead">
+        Weekly lessons, hymns, quizzes and class management — built for
+        GOFAMINT churches in English, Yorùbá, Igbo and Hausa.
+        Free for students, with sign-in for teachers and church admins.
+      </p>
+      <div class="cta-row">
+        <a href="/app" class="btn btn-primary btn-lg">📲 Download the App</a>
+        <a href="#roles" class="btn btn-ghost btn-lg">Sign in to a dashboard</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">13</div><div class="lbl">Lessons / quarter</div></div>
+        <div class="hero-stat"><div class="num">4</div><div class="lbl">Languages</div></div>
+        <div class="hero-stat"><div class="num">4</div><div class="lbl">Age groups</div></div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <div class="frame">
+        <!-- Hero image — high-quality community photo. Swap in /images if you have a better one. -->
+        <img src="/images/premium_photo-1723924908899-a3d51f2efd76.avif"
+             alt="GOFAMINT Sunday School community" loading="eager">
+      </div>
+      <div class="floating-card" aria-hidden="true">
+        <span class="fc-dot"></span>
+        <div class="fc-text">
+          <div class="fc-title">Lesson 4 ready</div>
+          <div class="fc-sub">Tap to start studying</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     ROLES — student / church admin / main admin
+     ───────────────────────────────────────────────────────────────────── -->
+<section class="roles" id="roles">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow-sm">Choose your path</span>
+      <h2>Built for every role at the church</h2>
+      <p>Whether you're sitting in a class or running a congregation, there's a place to start.</p>
+    </div>
+    <div class="roles-grid">
+
+      <!-- STUDENT -->
+      <a class="role" href="/app">
+        <div class="role-img">
+          <img src="/images/photo-1569292567773-229e2b7521ee.avif" alt="Student studying with the app" loading="lazy">
+        </div>
+        <div class="role-body">
+          <span class="pill">Student</span>
+          <h3>Get the mobile app</h3>
+          <p>Free for everyone. Read this week's lesson, take the quiz, climb the leaderboard, and sing along with the hymn book — all offline-ready.</p>
+          <span class="role-cta">Download <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <!-- CHURCH ADMIN -->
+      <a class="role" href="https://church.gospelar.com">
+        <div class="role-img">
+          <img src="/images/photo-1662151926492-abb5c7ae485c.avif" alt="Church admin reviewing engagement" loading="lazy">
+        </div>
+        <div class="role-body">
+          <span class="pill">Church admin</span>
+          <h3>Sign in as church leader</h3>
+          <p>See engagement across your congregation in real time: attendance, top learners, lesson completions and teacher activity — all scoped to your church.</p>
+          <span class="role-cta">Sign in <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <!-- MAIN ADMIN -->
+      <a class="role" href="https://admin.gospelar.com">
+        <div class="role-img">
+          <img src="/images/photo-1642307063044-b47294fbfe87.avif" alt="Main admin managing content" loading="lazy">
+        </div>
+        <div class="role-body">
+          <span class="pill">Main admin</span>
+          <h3>Sign in as main admin</h3>
+          <p>Manage units, lessons, hymns and translations. Approve incoming church signups, configure pricing and review system-wide insights.</p>
+          <span class="role-cta">Sign in <span class="arr">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     IMAGE BAND
+     ───────────────────────────────────────────────────────────────────── -->
+<section class="band" aria-label="Community">
+  <img src="/images/photo-1526746323784-6bc814d79273.avif" alt="" loading="lazy">
+  <div class="container">
+    <h2>Sunday School the way your church already runs it.</h2>
+    <p>Designed around the GOFAMINT teaching pattern — not generic LMS bloat. Teachers mark attendance, learners take quizzes, leaders watch the numbers move.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     FEATURES
+     ───────────────────────────────────────────────────────────────────── -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow-sm">Inside the app</span>
+      <h2>Everything you need for Sunday School</h2>
+      <p>One app for students, teachers, and church administrators — designed for offline-first use anywhere in Nigeria.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon blue">📖</div>
+        <h3>Weekly lessons</h3>
+        <p>Every quarter's lessons across all four age groups — Children, Intermediate, Youth, Adult — translated into the language of your service.</p>
+      </div>
+      <div class="card">
+        <div class="icon orange">🎵</div>
+        <h3>Hymns offline</h3>
+        <p>The full Gospel Hymn Book in your pocket. Search by number or first line, share with your class.</p>
+      </div>
+      <div class="card">
+        <div class="icon green">🎯</div>
+        <h3>Quizzes &amp; leaderboards</h3>
+        <p>Reinforce each lesson with a short quiz. Friendly leaderboards keep teens and adults engaged.</p>
+      </div>
+      <div class="card">
+        <div class="icon blue">👨‍🏫</div>
+        <h3>Teacher dashboard</h3>
+        <p>Mark attendance and award marks for memory verses and answered questions — works fully offline, syncs when you're back online.</p>
+      </div>
+      <div class="card">
+        <div class="icon orange">⛪</div>
+        <h3>Church admin</h3>
+        <p>Pastors and superintendents see real-time engagement: who's attending, who's completing lessons, top learners by class.</p>
+      </div>
+      <div class="card">
+        <div class="icon green">🌍</div>
+        <h3>Four languages</h3>
+        <p>English, Yorùbá, Igbo and Hausa — every screen, lesson title and notification translated. Switch instantly from Settings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     DOWNLOAD STRIP — primary CTA for the mobile app
+     ───────────────────────────────────────────────────────────────────── -->
+<section class="download" id="download">
+  <div class="container">
+    <div>
+      <h2>Download Gospelar today.</h2>
+      <p>Free for students. Tap a store badge to install — or visit the dedicated download page for direct links and the latest APK.</p>
+      <div class="store-row">
+        <!-- TODO: when published, swap the # for the real store URLs. -->
+        <a class="store-btn" href="/app" aria-label="Get on Google Play">
+          <span class="ico">🤖</span>
+          <span>
+            <span class="small">Get it on</span>
+            <span class="big">Google Play</span>
+          </span>
+        </a>
+        <a class="store-btn" href="/app" aria-label="Download on the App Store">
+          <span class="ico">🍎</span>
+          <span>
+            <span class="small">Download on the</span>
+            <span class="big">App Store</span>
+          </span>
+        </a>
+        <a href="/app" class="btn btn-ghost" style="background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.18)">All download options →</a>
+      </div>
+    </div>
+
+    <div class="dl-side">
+      <div class="frame">
+        <img src="/images/photo-1563902341721-029085ad9347.avif" alt="Gospelar mobile preview" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────────────────
+     LANGUAGES + FOOTER
+     ───────────────────────────────────────────────────────────────────── -->
+<div class="lang-strip">
+  <div class="container">
+    <div class="lang"><span class="flag">🇬🇧</span> English</div>
+    <div class="lang"><span class="flag">🇳🇬</span> Yorùbá</div>
+    <div class="lang"><span class="flag">🇳🇬</span> Igbo</div>
+    <div class="lang"><span class="flag">🇳🇬</span> Hausa</div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="copy">© 2026 Gospelar · GOFAMINT Sunday School</div>
+    <div class="links">
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:hello@gospelar.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Sign-in dropdown ──────────────────────────────────────────────────
+  const wrap = document.getElementById('signin-wrap');
+  function toggleSignin() {
+    const open = wrap.classList.toggle('open');
+    wrap.querySelector('.signin-toggle').setAttribute('aria-expanded', String(open));
+  }
+  // Click outside to close.
+  document.addEventListener('click', (e) => {
+    if (!wrap.contains(e.target)) {
+      wrap.classList.remove('open');
+      wrap.querySelector('.signin-toggle').setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+</body>
+</html>

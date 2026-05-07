@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["TEAMID.com.gofamint.sundayschool"],
+        "components": [
+          { "/": "/lesson/*", "comment": "Open a specific lesson in the app" },
+          { "/": "/class/*",  "comment": "Open a class invite link in the app" },
+          { "/": "/app",      "comment": "App install / open page" },
+          { "/": "/",         "exclude": true, "comment": "Don't intercept the marketing site root" }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["TEAMID.com.gofamint.sundayschool"]
+  }
+}

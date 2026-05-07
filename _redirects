@@ -1,0 +1,11 @@
+# Netlify / Cloudflare Pages redirects.
+# Pretty URLs without the .html extension.
+/privacy   /privacy.html  200
+/terms     /terms.html    200
+/about     /about.html    200
+/app       /app.html      200
+
+# Apple's universal-link verification file MUST be served as application/json
+# with no .json extension. Most static hosts handle this automatically when
+# the file is placed under /.well-known/, but force the type just in case.
+/.well-known/apple-app-site-association  /.well-known/apple-app-site-association  200!  Content-Type=application/json
