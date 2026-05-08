@@ -1,4 +1,11 @@
 # Netlify / Cloudflare Pages redirects.
+
+# Force HTTPS — every http://… request 301-redirects to its https:// twin.
+# Vercel does this automatically and ignores _redirects, but Netlify and
+# Cloudflare Pages need it spelled out.
+http://www.gospelar.com/*   https://www.gospelar.com/:splat   301!
+http://gospelar.com/*       https://www.gospelar.com/:splat   301!
+
 # Pretty URLs without the .html extension.
 /privacy   /privacy.html  200
 /terms     /terms.html    200
