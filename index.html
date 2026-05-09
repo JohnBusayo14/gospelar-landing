@@ -58,7 +58,8 @@ img { max-width: 100%; display: block; }
 .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
 /* ── NAV ───────────────────────────────────────────────────────────────── */
-nav { position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 50; }
+nav { position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 50; transition: box-shadow .25s ease, background .25s ease; }
+nav.scrolled { background: rgba(255,255,255,.96); box-shadow: 0 1px 18px rgba(15,23,42,.06); }
 nav .container { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: -0.3px; color: var(--text); }
 .logo:hover { text-decoration: none; }
@@ -202,17 +203,16 @@ section.features { padding: 100px 0; background: var(--surface); }
 .download h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: -0.8px; margin-bottom: 14px; line-height: 1.15; }
 .download p { color: rgba(255,255,255,.88); font-size: 16.5px; margin-bottom: 28px; max-width: 540px; }
 .store-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-.store-btn {
-  display: inline-flex; align-items: center; gap: 12px;
-  padding: 12px 18px; border-radius: 12px; background: #0F172A; color: #fff;
-  border: 1px solid rgba(255,255,255,.12);
-  transition: transform .12s ease, background .15s ease;
-  text-decoration: none;
+.store-badge {
+  display: inline-block; height: 56px;
+  border-radius: 11px; overflow: hidden;
+  transition: transform .25s cubic-bezier(.22,.61,.36,1), filter .2s ease, box-shadow .25s ease;
+  text-decoration: none; line-height: 0;
 }
-.store-btn:hover { background: #000; transform: translateY(-1px); text-decoration: none; }
-.store-btn .ico { font-size: 22px; }
-.store-btn .small { font-size: 10.5px; opacity: .8; line-height: 1.2; letter-spacing: .4px; text-transform: uppercase; }
-.store-btn .big   { font-size: 16px; font-weight: 700; line-height: 1.1; margin-top: 2px; }
+.store-badge:hover { transform: translateY(-3px); filter: brightness(1.08); box-shadow: 0 10px 28px rgba(0,0,0,.35); text-decoration: none; }
+.store-badge img { height: 100%; width: auto; display: block; }
+.dl-options-btn { background: rgba(255,255,255,.06); color: #fff; border-color: rgba(255,255,255,.18); }
+.dl-options-btn:hover { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.30); }
 .dl-side { position: relative; }
 .dl-side .frame { aspect-ratio: 1/1; border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.15); box-shadow: var(--shadow-lg); }
 .dl-side .frame img { width: 100%; height: 100%; object-fit: cover; }
@@ -246,7 +246,69 @@ footer .copy { color: var(--muted); font-size: 13px; }
   section.features, section.roles, .download { padding: 72px 0; }
   .hero-stats { gap: 18px; margin-top: 28px; }
   footer .container { justify-content: center; text-align: center; }
+  .store-badge { height: 48px; }
 }
+
+/* ── Animations & motion ───────────────────────────────────────────────────
+   All motion gated behind prefers-reduced-motion so users with vestibular
+   sensitivities aren't forced through it. */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Scroll-reveal — used on hero copy, section headers, role cards, feature
+     cards, image band, download strip. Stagger via inline `--reveal-delay`. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s cubic-bezier(.22,.61,.36,1),
+                transform .7s cubic-bezier(.22,.61,.36,1);
+    transition-delay: var(--reveal-delay, 0s);
+    will-change: opacity, transform;
+  }
+  [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+  /* Subtle vertical float on the hero image. */
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  .hero-art .frame { animation: floatY 6.5s ease-in-out infinite; }
+
+  /* Pulsing ring on the green status dot in the floating card. */
+  @keyframes pulseRing {
+    0%, 100% { box-shadow: 0 0 0 4px  rgba(16,185,129,.18); }
+    50%      { box-shadow: 0 0 0 10px rgba(16,185,129,.06); }
+  }
+  .hero-art .fc-dot { animation: pulseRing 2.4s ease-in-out infinite; }
+
+  /* Slow drift on the hero background orb so the hero never feels static. */
+  @keyframes driftOrb {
+    0%, 100% { transform: translate(0, 0)  scale(1); }
+    50%      { transform: translate(-26px, 18px) scale(1.05); }
+  }
+  .hero::before { animation: driftOrb 16s ease-in-out infinite; }
+
+  /* Soft shimmer on the eyebrow tag — a one-shot accent on first load. */
+  @keyframes eyebrowShine {
+    0%   { background: rgba(26,86,219,.12); }
+    50%  { background: rgba(26,86,219,.22); }
+    100% { background: rgba(26,86,219,.12); }
+  }
+  .hero .eyebrow { animation: eyebrowShine 4s ease-in-out infinite; }
+
+  /* Stagger reveal across feature-card and role grids — child order drives
+     the delay so I don't have to set --reveal-delay inline on every card. */
+  .grid > [data-reveal]:nth-child(1)  { --reveal-delay: 0s;     }
+  .grid > [data-reveal]:nth-child(2)  { --reveal-delay: .06s;   }
+  .grid > [data-reveal]:nth-child(3)  { --reveal-delay: .12s;   }
+  .grid > [data-reveal]:nth-child(4)  { --reveal-delay: .18s;   }
+  .grid > [data-reveal]:nth-child(5)  { --reveal-delay: .24s;   }
+  .grid > [data-reveal]:nth-child(6)  { --reveal-delay: .30s;   }
+}
+
+/* Smooth scroll for in-page anchors (already in CSS by default in modern
+   browsers but explicit makes intent clear). */
+html { scroll-behavior: smooth; }
+
 </style>
 </head>
 <body>
@@ -295,26 +357,26 @@ footer .copy { color: var(--muted); font-size: 13px; }
 <header class="hero">
   <div class="container">
     <div>
-      <span class="eyebrow">Gospelar Sunday School</span>
-      <h1>Sunday School, <span class="accent">in your pocket.</span></h1>
-      <p class="lead">
+      <span class="eyebrow" data-reveal>Gospelar Sunday School</span>
+      <h1 data-reveal style="--reveal-delay:.05s">Sunday School, <span class="accent">in your pocket.</span></h1>
+      <p class="lead" data-reveal style="--reveal-delay:.15s">
         Weekly lessons, hymns, quizzes and class management — built for
         Gospelar churches in English, Yorùbá, Igbo and Hausa.
         Free for students, with sign-in for teachers and church admins.
       </p>
-      <div class="cta-row">
+      <div class="cta-row" data-reveal style="--reveal-delay:.25s">
         <a href="/app" class="btn btn-primary btn-lg">📲 Download the App</a>
         <a href="#roles" class="btn btn-ghost btn-lg">Sign in to a dashboard</a>
       </div>
 
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="num">13</div><div class="lbl">Lessons / quarter</div></div>
-        <div class="hero-stat"><div class="num">4</div><div class="lbl">Languages</div></div>
-        <div class="hero-stat"><div class="num">4</div><div class="lbl">Age groups</div></div>
+      <div class="hero-stats" data-reveal style="--reveal-delay:.35s">
+        <div class="hero-stat"><div class="num" data-count="13">0</div><div class="lbl">Lessons / quarter</div></div>
+        <div class="hero-stat"><div class="num" data-count="4">0</div><div class="lbl">Languages</div></div>
+        <div class="hero-stat"><div class="num" data-count="4">0</div><div class="lbl">Age groups</div></div>
       </div>
     </div>
 
-    <div class="hero-art">
+    <div class="hero-art" data-reveal style="--reveal-delay:.1s">
       <div class="frame">
         <!-- Hero image — high-quality community photo. Swap in /images if you have a better one. -->
         <img src="/images/premium_photo-1723924908899-a3d51f2efd76.avif"
@@ -336,7 +398,7 @@ footer .copy { color: var(--muted); font-size: 13px; }
      ───────────────────────────────────────────────────────────────────── -->
 <section class="roles" id="roles">
   <div class="container">
-    <div class="section-title">
+    <div class="section-title" data-reveal>
       <span class="eyebrow-sm">Choose your path</span>
       <h2>Built for every role at the church</h2>
       <p>Whether you're sitting in a class or running a congregation, there's a place to start.</p>
@@ -344,7 +406,7 @@ footer .copy { color: var(--muted); font-size: 13px; }
     <div class="roles-grid">
 
       <!-- STUDENT -->
-      <a class="role" href="/app">
+      <a class="role" href="/app" data-reveal>
         <div class="role-img">
           <img src="/images/photo-1569292567773-229e2b7521ee.avif" alt="Student studying with the app" loading="lazy">
         </div>
@@ -357,7 +419,7 @@ footer .copy { color: var(--muted); font-size: 13px; }
       </a>
 
       <!-- CHURCH ADMIN -->
-      <a class="role" href="https://church.gospelar.com">
+      <a class="role" href="https://church.gospelar.com" data-reveal style="--reveal-delay:.1s">
         <div class="role-img">
           <img src="/images/photo-1662151926492-abb5c7ae485c.avif" alt="Church admin reviewing engagement" loading="lazy">
         </div>
@@ -370,7 +432,7 @@ footer .copy { color: var(--muted); font-size: 13px; }
       </a>
 
       <!-- MAIN ADMIN -->
-      <a class="role" href="https://admin.gospelar.com">
+      <a class="role" href="https://admin.gospelar.com" data-reveal style="--reveal-delay:.2s">
         <div class="role-img">
           <img src="/images/photo-1642307063044-b47294fbfe87.avif" alt="Main admin managing content" loading="lazy">
         </div>
@@ -391,7 +453,7 @@ footer .copy { color: var(--muted); font-size: 13px; }
      ───────────────────────────────────────────────────────────────────── -->
 <section class="band" aria-label="Community">
   <img src="/images/photo-1526746323784-6bc814d79273.avif" alt="" loading="lazy">
-  <div class="container">
+  <div class="container" data-reveal>
     <h2>Sunday School the way your church already runs it.</h2>
     <p>Designed around the Gospelar teaching pattern — not generic LMS bloat. Teachers mark attendance, learners take quizzes, leaders watch the numbers move.</p>
   </div>
@@ -402,38 +464,38 @@ footer .copy { color: var(--muted); font-size: 13px; }
      ───────────────────────────────────────────────────────────────────── -->
 <section class="features" id="features">
   <div class="container">
-    <div class="section-title">
+    <div class="section-title" data-reveal>
       <span class="eyebrow-sm">Inside the app</span>
       <h2>Everything you need for Sunday School</h2>
       <p>One app for students, teachers, and church administrators — designed for offline-first use anywhere in Nigeria.</p>
     </div>
     <div class="grid">
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon blue">📖</div>
         <h3>Weekly lessons</h3>
         <p>Every quarter's lessons across all four age groups — Children, Intermediate, Youth, Adult — translated into the language of your service.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon orange">🎵</div>
         <h3>Hymns offline</h3>
         <p>The full Gospel Hymn Book in your pocket. Search by number or first line, share with your class.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon green">🎯</div>
         <h3>Quizzes &amp; leaderboards</h3>
         <p>Reinforce each lesson with a short quiz. Friendly leaderboards keep teens and adults engaged.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon blue">👨‍🏫</div>
         <h3>Teacher dashboard</h3>
         <p>Mark attendance and award marks for memory verses and answered questions — works fully offline, syncs when you're back online.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon orange">⛪</div>
         <h3>Church admin</h3>
         <p>Pastors and superintendents see real-time engagement: who's attending, who's completing lessons, top learners by class.</p>
       </div>
-      <div class="card">
+      <div class="card" data-reveal>
         <div class="icon green">🌍</div>
         <h3>Four languages</h3>
         <p>English, Yorùbá, Igbo and Hausa — every screen, lesson title and notification translated. Switch instantly from Settings.</p>
@@ -447,30 +509,24 @@ footer .copy { color: var(--muted); font-size: 13px; }
      ───────────────────────────────────────────────────────────────────── -->
 <section class="download" id="download">
   <div class="container">
-    <div>
+    <div data-reveal>
       <h2>Download Gospelar today.</h2>
       <p>Free for students. Tap a store badge to install — or visit the dedicated download page for direct links and the latest APK.</p>
       <div class="store-row">
-        <!-- TODO: when published, swap the # for the real store URLs. -->
-        <a class="store-btn" href="/app" aria-label="Get on Google Play">
-          <span class="ico">🤖</span>
-          <span>
-            <span class="small">Get it on</span>
-            <span class="big">Google Play</span>
-          </span>
+        <!-- TODO: when published, point href to the real store URLs.
+             The badge images live at /images/google-play-badge.png and
+             /images/app-store-badge.png — drop the official artwork there. -->
+        <a class="store-badge" href="/app" aria-label="Get it on Google Play">
+          <img src="/images/google-play-badge.png" alt="Get it on Google Play" />
         </a>
-        <a class="store-btn" href="/app" aria-label="Download on the App Store">
-          <span class="ico">🍎</span>
-          <span>
-            <span class="small">Download on the</span>
-            <span class="big">App Store</span>
-          </span>
+        <a class="store-badge" href="/app" aria-label="Download on the App Store">
+          <img src="/images/app-store-badge.png" alt="Download on the App Store" />
         </a>
-        <a href="/app" class="btn btn-ghost" style="background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.18)">All download options →</a>
+        <a href="/app" class="btn btn-ghost dl-options-btn">All download options →</a>
       </div>
     </div>
 
-    <div class="dl-side">
+    <div class="dl-side" data-reveal style="--reveal-delay:.15s">
       <div class="frame">
         <img src="/images/photo-1563902341721-029085ad9347.avif" alt="Gospelar mobile preview" loading="lazy">
       </div>
@@ -516,6 +572,63 @@ footer .copy { color: var(--muted); font-size: 13px; }
       wrap.querySelector('.signin-toggle').setAttribute('aria-expanded', 'false');
     }
   });
+
+  // ── Scroll-reveal ─────────────────────────────────────────────────────
+  // Adds .is-visible to every [data-reveal] when it enters the viewport.
+  // Each element is observed once, then released — no scroll listener
+  // overhead for the lifetime of the page.
+  const revealIO = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealIO.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+  );
+  document.querySelectorAll('[data-reveal]').forEach((el) => revealIO.observe(el));
+
+  // ── Stat count-up ─────────────────────────────────────────────────────
+  // Animates [data-count="13"] from 0 → 13 with a cubic ease-out when the
+  // hero stats scroll into view. Tabular-nums keeps the digit width stable
+  // while the number changes.
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const countUp = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    if (!Number.isFinite(target)) return;
+    const start = performance.now();
+    const dur   = 900;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      el.textContent = Math.floor(target * easeOutCubic(t));
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = String(target);
+    };
+    requestAnimationFrame(tick);
+  };
+  const countIO = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          countUp(entry.target);
+          countIO.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.5 },
+  );
+  document.querySelectorAll('[data-count]').forEach((el) => countIO.observe(el));
+
+  // ── Sticky-nav shadow on scroll ───────────────────────────────────────
+  // Adds a soft shadow + slightly more opaque bg once the page has scrolled
+  // off the hero — small touch but it's what separates "marketing template"
+  // from "feels engineered".
+  const navEl = document.querySelector('nav');
+  const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 </script>
 
 </body>
