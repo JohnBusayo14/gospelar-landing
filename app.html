@@ -6,87 +6,334 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <title>Get Gospelar — Gospelar Sunday School</title>
 <meta name="description" content="Download Gospelar on Android and iOS.">
+<link rel="canonical" href="https://www.gospelar.com/app">
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 
-<!-- Auto-redirect signals for the stores. Replace ID once published. -->
-<meta name="google-play-app" content="app-id=com.gofamint.sundayschool">
+<!-- Auto-redirect signals for the stores. Replace IDs once published. -->
+<meta name="google-play-app" content="app-id=com.gospelar.sundayschool">
 <meta name="apple-itunes-app" content="app-id=APP_STORE_ID_PLACEHOLDER">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-:root { --blue:#1A56DB; --blue-dark:#1E40AF; --blue-light:#EFF6FF; --text:#0F172A; --muted:#64748B; --border:#E2E8F0; }
+:root {
+  --surface: #F5F8FC;
+  --surface-container-lowest: #FFFFFF;
+  --surface-container-low: #EFF4F8;
+  --on-surface: #0F172A;
+  --on-surface-variant: #475569;
+  --on-surface-muted: #64748B;
+  --ghost: rgba(15,23,42,0.07);
+  --ghost-strong: rgba(15,23,42,0.10);
+  --primary: #1A56DB;
+  --on-primary: #FFFFFF;
+  --primary-container: #1E40AF;
+  --primary-deeper: #1E3A8A;
+  --primary-soft: rgba(26,86,219,0.10);
+  --secondary: #2563EB;
+  --tertiary-container: #E2E8F0;
+  --tertiary: #475569;
+  --success: #059669;
+  --success-soft: rgba(5,150,105,0.12);
+  --glass: rgba(255,255,255,0.70);
+  --glass-strong: rgba(255,255,255,0.86);
+  --glass-blur: 24px;
+  --shadow-1: 0 1px 3px rgba(15,23,42,0.04);
+  --shadow-2: 0 4px 16px rgba(15,23,42,0.06);
+  --shadow-3: 0 12px 40px rgba(15,23,42,0.10);
+  --shadow-blue: 0 14px 42px rgba(26,86,219,0.32);
+  --r-xs: 0.375rem; --r-sm: 0.625rem; --r: 1rem; --r-md: 1.25rem; --r-lg: 1.5rem; --r-xl: 2rem; --r-pill: 9999px;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
+*::selection { background: var(--primary-soft); color: var(--primary); }
+html { scroll-behavior: smooth; }
 body {
-  background: linear-gradient(180deg, var(--blue-light) 0%, #fff 60%);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-feature-settings: "ss01","ss02","cv11";
+  background: var(--surface);
+  color: var(--on-surface);
   -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  background-image:
+    radial-gradient(1100px 700px at 88% -10%, rgba(26,86,219,0.10), transparent 55%),
+    radial-gradient(900px 600px at -10% 30%, rgba(37,99,235,0.06), transparent 60%),
+    radial-gradient(700px 500px at 50% 120%, rgba(147,197,253,0.16), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
 }
-.wrap { text-align: center; padding: 32px 24px; max-width: 480px; }
-.logo-mark { width: 72px; height: 72px; border-radius: 18px; background: var(--blue); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 32px; margin: 0 auto 24px; box-shadow: 0 12px 32px rgba(26,86,219,.25); }
-h1 { font-size: 36px; font-weight: 900; letter-spacing: -1px; margin-bottom: 12px; }
-p.lead { color: var(--muted); font-size: 17px; margin-bottom: 36px; }
+a { color: var(--primary); text-decoration: none; transition: color .15s ease; }
+a:hover { color: var(--primary-container); }
 
-.store-btn {
-  display: flex; align-items: center; justify-content: center; gap: 14px;
-  padding: 16px 24px; background: var(--text); color: #fff; border-radius: 16px;
-  text-decoration: none; font-weight: 700; margin-bottom: 14px;
-  transition: transform .12s ease, box-shadow .2s ease;
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ── Nav (pill, glass) ───────────────────────────────────────────────── */
+nav.topnav { position: sticky; top: 0; z-index: 100; padding: 0.75rem 1.5rem; display: flex; justify-content: center; }
+nav.topnav .nav-pill {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: 1280px;
+  padding: 0.5rem 0.55rem 0.5rem 1.1rem;
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost); border-radius: var(--r-pill);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow .25s ease;
 }
-.store-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(15,23,42,.18); }
-.store-btn .icon { font-size: 28px; }
-.store-btn .text { text-align: left; line-height: 1.2; }
-.store-btn .text small { display: block; font-size: 11px; font-weight: 600; opacity: .7; letter-spacing: .5px; }
-.store-btn .text strong { font-size: 17px; font-weight: 800; }
+nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
+.brand { display: flex; align-items: center; gap: 0.625rem; font-weight: 800; letter-spacing: -0.015em; color: var(--on-surface); font-size: 1rem; }
+.brand:hover { color: var(--on-surface); }
+.brand-mark {
+  width: 32px; height: 32px; border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary); display: grid; place-items: center;
+  font-weight: 900; font-size: 0.95rem; box-shadow: var(--shadow-blue);
+}
+.nav-links { display: flex; align-items: center; gap: 1.25rem; }
+.nav-links > a { color: var(--on-surface-variant); font-weight: 600; font-size: 0.875rem; }
+.nav-links > a:hover { color: var(--on-surface); }
 
-.note { margin-top: 28px; font-size: 13px; color: var(--muted); }
-.note a { color: var(--blue); }
+/* ── Type ────────────────────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  background: var(--primary-soft); color: var(--primary);
+  border: 1px solid var(--ghost); border-radius: var(--r-pill);
+  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.eyebrow .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+.label-caps { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-muted); }
 
-footer { margin-top: 48px; font-size: 12px; color: var(--muted); }
-footer a { color: var(--muted); margin: 0 8px; }
+/* ── Main download card ──────────────────────────────────────────────── */
+main {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+}
+.download-card {
+  width: 100%; max-width: 520px;
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost); border-radius: var(--r-xl);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-3);
+  position: relative;
+}
+.app-mark {
+  width: 96px; height: 96px;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary);
+  display: grid; place-items: center;
+  font-weight: 900; font-size: 2.5rem;
+  margin: 0 auto 1.75rem;
+  box-shadow: var(--shadow-blue);
+  position: relative;
+}
+.app-mark::after {
+  content: ''; position: absolute; inset: -8px;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  opacity: 0.2;
+  filter: blur(20px);
+  z-index: -1;
+}
+.download-card h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800;
+  letter-spacing: -0.025em; line-height: 1.1;
+  margin-bottom: 0.625rem;
+}
+.download-card h1 .accent {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.download-card p.lead {
+  color: var(--on-surface-variant);
+  font-size: 1.0625rem; line-height: 1.55;
+  margin-bottom: 2rem;
+  max-width: 28rem; margin-left: auto; margin-right: auto;
+}
+
+/* ── Trust chips row ─────────────────────────────────────────────────── */
+.trust-row {
+  display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.65rem; border-radius: var(--r-xs);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.chip-success { background: var(--success-soft); color: var(--success); }
+.chip-slate   { background: var(--tertiary-container); color: var(--tertiary); }
+.chip-dot     { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ── Store badges ────────────────────────────────────────────────────── */
+.store-stack {
+  display: flex; flex-direction: column; gap: 0.875rem;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+.store-badge {
+  display: inline-block; height: 60px;
+  border-radius: var(--r-sm);
+  overflow: hidden; line-height: 0;
+  transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s ease, filter .2s ease;
+}
+.store-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 32px rgba(15,23,42,0.18);
+}
+.store-badge img { height: 100%; width: auto; display: block; }
+
+/* ── Helper notes ────────────────────────────────────────────────────── */
+.help-notes {
+  border-top: 1px solid var(--ghost);
+  padding-top: 1.5rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  font-size: 0.875rem; color: var(--on-surface-muted);
+}
+.help-notes a { font-weight: 600; }
+
+/* ── Bottom helpers ──────────────────────────────────────────────────── */
+.below-card {
+  text-align: center; margin-top: 2rem;
+  font-size: 0.8125rem; color: var(--on-surface-muted);
+}
+.below-card a { color: var(--on-surface-variant); margin: 0 0.5rem; font-weight: 600; }
+.below-card a:hover { color: var(--on-surface); }
+
+footer { padding: 2rem 0; text-align: center; color: var(--on-surface-muted); font-size: 0.8125rem; border-top: 1px solid var(--ghost); }
+footer a { color: var(--on-surface-variant); font-weight: 600; margin: 0 0.5rem; }
+
+@media (max-width: 720px) {
+  .nav-links > a:first-child { display: none; }
+  .download-card { padding: 2rem 1.5rem; }
+  .app-mark { width: 80px; height: 80px; font-size: 2rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+  [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes pulseDot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(26,86,219,0.50); }
+    50%      { box-shadow: 0 0 0 6px rgba(26,86,219,0.00); }
+  }
+  .eyebrow .chip-dot { animation: pulseDot 2s ease-in-out infinite; }
+
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  .app-mark { animation: floatY 5s ease-in-out infinite; }
+}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <div class="logo-mark">G</div>
-  <h1>Get Gospelar</h1>
-  <p class="lead">Gospelar Sunday School in your pocket — lessons, hymns, quizzes, and class management.</p>
+<nav class="topnav">
+  <div class="nav-pill">
+    <a href="/" class="brand">
+      <span class="brand-mark">G</span>
+      <span>Gospelar</span>
+    </a>
+    <div class="nav-links">
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+  </div>
+</nav>
 
-  <a href="https://play.google.com/store/apps/details?id=com.gofamint.sundayschool" class="store-btn" id="play-btn">
-    <span class="icon">🤖</span>
-    <span class="text"><small>GET IT ON</small><strong>Google Play</strong></span>
-  </a>
+<main>
+  <div class="download-card" data-reveal>
+    <div class="app-mark">G</div>
+    <span class="eyebrow"><span class="chip-dot"></span>Free for students</span>
+    <h1>Get <span class="accent">Gospelar</span></h1>
+    <p class="lead">Sunday School in your pocket — lessons, hymns, quizzes, and class management. Built for Gospelar churches in English, Yorùbá, Igbo and Hausa.</p>
 
-  <a href="https://apps.apple.com/app/idAPP_STORE_ID_PLACEHOLDER" class="store-btn" id="ios-btn">
-    <span class="icon">🍎</span>
-    <span class="text"><small>DOWNLOAD ON THE</small><strong>App Store</strong></span>
-  </a>
+    <div class="trust-row">
+      <span class="chip chip-success"><span class="chip-dot"></span>Offline-ready</span>
+      <span class="chip chip-slate"><span class="chip-dot"></span>Four languages</span>
+    </div>
 
-  <p class="note">Already installed? <a href="gospelar://open">Open the app</a><br>Need help? <a href="mailto:askgospelar@gmail.com">askgospelar@gmail.com</a></p>
+    <div class="store-stack">
+      <a href="https://play.google.com/store/apps/details?id=com.gospelar.sundayschool" class="store-badge" id="play-btn" aria-label="Get it on Google Play">
+        <img src="/images/google-play-badge.png" alt="Get it on Google Play">
+      </a>
+      <a href="https://apps.apple.com/app/idAPP_STORE_ID_PLACEHOLDER" class="store-badge" id="ios-btn" aria-label="Download on the App Store">
+        <img src="/images/app-store-badge.png" alt="Download on the App Store">
+      </a>
+    </div>
 
-  <footer>
-    <a href="/">Home</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a>
-  </footer>
-</div>
+    <div class="help-notes">
+      <div>Already installed? <a href="gospelar://open">Open the app →</a></div>
+      <div>Need help? <a href="mailto:askgospelar@gmail.com">askgospelar@gmail.com</a></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 Gospelar &nbsp;·&nbsp;
+  <a href="/">Home</a> ·
+  <a href="/about">About</a> ·
+  <a href="/privacy">Privacy</a> ·
+  <a href="/terms">Terms</a>
+</footer>
 
 <script>
-// Auto-jump to the right store on mobile so users don't have to pick.
-(function () {
-  var ua = navigator.userAgent || '';
-  var isIOS     = /iPhone|iPad|iPod/i.test(ua);
-  var isAndroid = /Android/i.test(ua);
-  // Only auto-redirect if we landed here from a tap (not a refresh of the page
-  // they manually opened), and only on mobile devices.
-  if (document.referrer && (isIOS || isAndroid)) {
-    setTimeout(function () {
-      if (isIOS)     window.location.href = document.getElementById('ios-btn').href;
-      if (isAndroid) window.location.href = document.getElementById('play-btn').href;
-    }, 400);
-  }
-})();
+  // Auto-jump to the right store on mobile so users don't have to pick.
+  // Only triggers when arrived via a tap (document.referrer present).
+  (function () {
+    var ua = navigator.userAgent || '';
+    var isIOS     = /iPhone|iPad|iPod/i.test(ua);
+    var isAndroid = /Android/i.test(ua);
+    if (document.referrer && (isIOS || isAndroid)) {
+      setTimeout(function () {
+        if (isIOS)     window.location.href = document.getElementById('ios-btn').href;
+        if (isAndroid) window.location.href = document.getElementById('play-btn').href;
+      }, 400);
+    }
+  })();
+
+  // Scroll-reveal observer (cosmetic — the card is above the fold so it
+  // mostly fires immediately, but consistent with sibling pages).
+  const revealIO = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          revealIO.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.12 },
+  );
+  document.querySelectorAll('[data-reveal]').forEach((el) => revealIO.observe(el));
+
+  // Sticky-nav shadow on scroll.
+  const navEl = document.querySelector('nav.topnav');
+  const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 </script>
 
 </body>

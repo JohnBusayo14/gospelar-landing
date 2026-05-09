@@ -2,86 +2,354 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <title>About — Gospelar</title>
 <meta name="description" content="The story behind the Gospelar app and our mission for Gospelar Sunday School.">
+<link rel="canonical" href="https://www.gospelar.com/about">
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-:root { --blue:#1A56DB; --blue-light:#EFF6FF; --text:#0F172A; --muted:#64748B; --border:#E2E8F0; }
+/* Nexus Clinical Identity — Blue primary build (about page slice). */
+:root {
+  --surface: #F5F8FC;
+  --surface-container-lowest: #FFFFFF;
+  --surface-container-low: #EFF4F8;
+  --on-surface: #0F172A;
+  --on-surface-variant: #475569;
+  --on-surface-muted: #64748B;
+  --ghost: rgba(15,23,42,0.07);
+  --ghost-strong: rgba(15,23,42,0.10);
+  --primary: #1A56DB;
+  --on-primary: #FFFFFF;
+  --primary-container: #1E40AF;
+  --primary-deeper: #1E3A8A;
+  --primary-soft: rgba(26,86,219,0.10);
+  --secondary: #2563EB;
+  --tertiary-container: #E2E8F0;
+  --tertiary: #475569;
+  --success: #059669;
+  --success-soft: rgba(5,150,105,0.12);
+  --glass: rgba(255,255,255,0.70);
+  --glass-strong: rgba(255,255,255,0.86);
+  --glass-blur: 24px;
+  --shadow-1: 0 1px 3px rgba(15,23,42,0.04);
+  --shadow-2: 0 4px 16px rgba(15,23,42,0.06);
+  --shadow-3: 0 12px 40px rgba(15,23,42,0.10);
+  --shadow-blue: 0 14px 42px rgba(26,86,219,0.32);
+  --r-xs: 0.375rem; --r-sm: 0.625rem; --r: 1rem; --r-md: 1.25rem; --r-lg: 1.5rem; --r-xl: 2rem; --r-pill: 9999px;
+  --container-max: 880px;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #fff; color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-a { color: var(--blue); }
-.container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+*::selection { background: var(--primary-soft); color: var(--primary); }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-feature-settings: "ss01","ss02","cv11";
+  background: var(--surface);
+  color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  background-image:
+    radial-gradient(1100px 700px at 88% -10%, rgba(26,86,219,0.10), transparent 55%),
+    radial-gradient(900px 600px at -10% 30%, rgba(37,99,235,0.06), transparent 60%),
+    radial-gradient(700px 500px at 50% 120%, rgba(147,197,253,0.16), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+a { color: var(--primary); text-decoration: none; transition: color .15s ease; }
+a:hover { color: var(--primary-container); }
 
-nav { border-bottom: 1px solid var(--border); padding: 16px 0; }
-nav .container { display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--text); text-decoration: none; }
-.logo-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--blue); color: #fff; display: grid; place-items: center; font-weight: 900; }
-nav .links a { color: var(--muted); font-weight: 600; font-size: 14px; margin-left: 22px; text-decoration: none; }
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 1.5rem; }
+.container-wide { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 
-main { padding: 56px 0 80px; }
-h1 { font-size: 40px; font-weight: 900; letter-spacing: -1px; margin-bottom: 12px; }
-.lead { color: var(--muted); font-size: 18px; margin-bottom: 36px; }
-h2 { font-size: 22px; font-weight: 800; margin: 36px 0 12px; letter-spacing: -0.4px; }
-p { color: #1E293B; margin-bottom: 14px; font-size: 16px; }
-.callout { background: var(--blue-light); border-left: 4px solid var(--blue); padding: 18px 20px; border-radius: 8px; margin: 24px 0; }
+/* ── Nav (pill, glass) ───────────────────────────────────────────────── */
+nav.topnav { position: sticky; top: 0; z-index: 100; padding: 0.75rem 1.5rem; display: flex; justify-content: center; }
+nav.topnav .nav-pill {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: 1280px;
+  padding: 0.5rem 0.55rem 0.5rem 1.1rem;
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost); border-radius: var(--r-pill);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow .25s ease;
+}
+nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
+.brand { display: flex; align-items: center; gap: 0.625rem; font-weight: 800; letter-spacing: -0.015em; color: var(--on-surface); font-size: 1rem; }
+.brand:hover { color: var(--on-surface); }
+.brand-mark {
+  width: 32px; height: 32px; border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary); display: grid; place-items: center;
+  font-weight: 900; font-size: 0.95rem; box-shadow: var(--shadow-blue);
+}
+.nav-links { display: flex; align-items: center; gap: 1.25rem; }
+.nav-links > a:not(.btn) { color: var(--on-surface-variant); font-weight: 600; font-size: 0.875rem; }
+.nav-links > a:not(.btn):hover { color: var(--on-surface); }
 
-footer { padding: 32px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
-footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-footer a { color: var(--muted); margin-left: 18px; }
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.9375rem;
+  letter-spacing: -0.005em; border: 0; border-radius: var(--r-pill);
+  cursor: pointer; padding: 0.85rem 1.6rem;
+  transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .2s ease;
+  white-space: nowrap;
+}
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-container)); color: var(--on-primary); box-shadow: var(--shadow-blue); }
+.btn-primary:hover { transform: scale(1.02); color: var(--on-primary); }
+.btn-ghost { background: var(--surface-container-lowest); color: var(--on-surface); border: 1px solid var(--ghost-strong); }
+.btn-ghost:hover { background: var(--surface-container-low); border-color: var(--primary); color: var(--primary); }
+
+/* ── Type ────────────────────────────────────────────────────────────── */
+.display-xl { font-family: 'Manrope', sans-serif; font-size: clamp(2.25rem, 4.5vw, 3.25rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.028em; }
+.display-lg { font-family: 'Manrope', sans-serif; font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.022em; }
+.label-caps { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; line-height: 1; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-muted); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  background: var(--primary-soft); color: var(--primary);
+  border: 1px solid var(--ghost); border-radius: var(--r-pill);
+  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.eyebrow .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+
+/* ── Layout ──────────────────────────────────────────────────────────── */
+header.hero { padding: 5rem 0 3rem; }
+header.hero h1 { margin: 1.25rem 0 1rem; }
+header.hero h1 .accent {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+header.hero .lead {
+  color: var(--on-surface-variant);
+  font-size: 1.125rem; line-height: 1.6;
+  max-width: 38rem;
+}
+
+main.body { padding: 1rem 0 5rem; }
+
+.glass-card {
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost); border-radius: var(--r-lg);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-1);
+}
+.glass-card + .glass-card { margin-top: 1.25rem; }
+.glass-card h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.375rem; font-weight: 800;
+  letter-spacing: -0.012em;
+  margin-bottom: 0.75rem;
+}
+.glass-card h2 .icon-block {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: var(--r-sm);
+  background: var(--primary-soft); color: var(--primary);
+  margin-right: 0.625rem; vertical-align: middle;
+  font-size: 18px;
+}
+.glass-card p { color: var(--on-surface-variant); font-size: 1rem; line-height: 1.65; }
+.glass-card p + p { margin-top: 0.875rem; }
+
+/* Bento grid for the four pillars */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.pillars .pillar {
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost); border-radius: var(--r-lg);
+  padding: 1.75rem;
+}
+.pillars .pillar h2 {
+  font-size: 1.125rem; font-weight: 800; letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+.pillars .pillar p {
+  color: var(--on-surface-variant); font-size: 0.9375rem; line-height: 1.6;
+}
+.pillar-icon {
+  width: 40px; height: 40px; border-radius: var(--r-sm);
+  display: grid; place-items: center; font-size: 20px;
+  background: var(--primary-soft); color: var(--primary);
+  margin-bottom: 0.875rem;
+}
+
+/* CTA callout */
+.cta-callout {
+  margin-top: 2rem;
+  border-radius: var(--r-xl);
+  padding: 2.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 60%, var(--primary-deeper) 100%);
+  color: white; position: relative; overflow: hidden;
+}
+.cta-callout::before {
+  content: ''; position: absolute; top: -120px; right: -100px;
+  width: 360px; height: 360px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 70%);
+}
+.cta-callout > * { position: relative; z-index: 1; }
+.cta-callout h2 { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.015em; margin-bottom: 0.625rem; color: white; }
+.cta-callout p { color: rgba(255,255,255,0.9); margin-bottom: 1.25rem; font-size: 1rem; }
+.cta-callout .btn-onprimary {
+  background: white; color: var(--primary);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.85rem 1.6rem; border-radius: var(--r-pill);
+  font-weight: 700; font-size: 0.9375rem;
+  transition: transform .25s cubic-bezier(.22,.61,.36,1);
+}
+.cta-callout .btn-onprimary:hover { transform: scale(1.02); color: var(--primary); }
+
+/* ── Footer ──────────────────────────────────────────────────────────── */
+footer { padding: 2.5rem 0; border-top: 1px solid var(--ghost); margin-top: 3rem; }
+footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; max-width: 1280px; }
+footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
+footer .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+footer .links a { color: var(--on-surface-variant); font-weight: 600; font-size: 0.875rem; }
+footer .links a:hover { color: var(--on-surface); }
+
+@media (max-width: 720px) {
+  .pillars { grid-template-columns: 1fr; }
+  .nav-links > a:not(.btn) { display: none; }
+  header.hero { padding: 3rem 0 2rem; }
+  .glass-card, .pillars .pillar { padding: 1.5rem; }
+  .cta-callout { padding: 2rem 1.5rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+  [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes pulseDot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(26,86,219,0.50); }
+    50%      { box-shadow: 0 0 0 6px rgba(26,86,219,0.00); }
+  }
+  .eyebrow .chip-dot { animation: pulseDot 2s ease-in-out infinite; }
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="container">
-    <a href="/" class="logo"><span class="logo-mark">G</span> Gospelar</a>
-    <div class="links">
+<nav class="topnav">
+  <div class="nav-pill">
+    <a href="/" class="brand">
+      <span class="brand-mark">G</span>
+      <span>Gospelar</span>
+    </a>
+    <div class="nav-links">
       <a href="/">Home</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/app.html">Get the App</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/app" class="btn btn-primary">Get the App</a>
     </div>
   </div>
 </nav>
 
-<main>
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow" data-reveal>
+      <span class="chip-dot"></span>
+      About Gospelar
+    </span>
+    <h1 class="display-xl" data-reveal style="--reveal-delay:.08s">
+      Sunday School,<br>
+      <span class="accent">made for every congregation.</span>
+    </h1>
+    <p class="lead" data-reveal style="--reveal-delay:.18s">
+      A modern Sunday School companion for the Gospel Faith Mission International — built so the lesson, the lyric, and the leaderboard are always in your pocket.
+    </p>
+  </div>
+</header>
+
+<main class="body">
   <div class="container">
 
-  <h1>About Gospelar</h1>
-  <p class="lead">A modern Sunday School companion for the Gospel Faith Mission International — built so the lesson, the lyric, and the leaderboard are always in your pocket.</p>
+    <div class="glass-card" data-reveal>
+      <h2><span class="icon-block">🎯</span>Our mission</h2>
+      <p>To make Gospelar's Sunday School curriculum accessible to every member of every congregation, in the language they pray in, on the device they already carry — and to give Sunday School teachers the tools they need to lead their classes well, even where the network is patchy.</p>
+    </div>
 
-  <h2>Our mission</h2>
-  <p>To make Gospelar's Sunday School curriculum accessible to every member of every congregation, in the language they pray in, on the device they already carry — and to give Sunday School teachers the tools they need to lead their classes well, even where the network is patchy.</p>
+    <div class="glass-card" data-reveal style="--reveal-delay:.06s">
+      <h2><span class="icon-block">🌅</span>Our vision</h2>
+      <p>A connected Gospelar — where a child in Ìbàdàn, a teen in Kano, a young adult in Lagos, and a mother in Abuja can open the same app and find this week's lesson, hear today's hymn, and see the same Word taught in their heart language.</p>
+    </div>
 
-  <h2>Our vision</h2>
-  <p>A connected Gospelar — where a child in Ìbàdàn, a teen in Kano, a young adult in Lagos, and a mother in Abuja can open the same app and find this week's lesson, hear today's hymn, and see the same Word taught in their heart language.</p>
+    <div class="pillars" data-reveal style="--reveal-delay:.12s">
+      <div class="pillar">
+        <div class="pillar-icon">📡</div>
+        <h2>Built for offline first</h2>
+        <p>Many of our churches meet where the network is unreliable. Teachers can mark attendance and award marks without a connection — the app saves locally and syncs automatically the moment Wi-Fi or data is available again.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🌍</div>
+        <h2>Four languages, one Word</h2>
+        <p>Every screen, lesson title, and notification is translated into English, Yorùbá, Igbo, and Hausa. Switch instantly from Settings — your progress and subscription move with you.</p>
+      </div>
+    </div>
 
-  <h2>Built for offline first</h2>
-  <p>Many of our churches meet where the network is unreliable. Teachers can mark attendance and award marks without a connection — the app saves locally and syncs automatically the moment Wi-Fi or data is available again.</p>
-
-  <h2>Four languages, one Word</h2>
-  <p>Every screen, lesson title, and notification is translated into English, Yorùbá, Igbo, and Hausa. Switch instantly from Settings — your progress and subscription move with you.</p>
-
-  <div class="callout">
-    <p><strong>Want to bring Gospelar to your church?</strong><br>
-    Reach out at <a href="mailto:askgospelar@gmail.com">askgospelar@gmail.com</a> — we'll set up a church account and walk you through onboarding your teachers.</p>
-  </div>
+    <div class="cta-callout" data-reveal style="--reveal-delay:.18s">
+      <h2>Want to bring Gospelar to your church?</h2>
+      <p>Reach out — we'll set up a church account and walk you through onboarding your teachers.</p>
+      <a class="btn-onprimary" href="mailto:askgospelar@gmail.com">📧 askgospelar@gmail.com</a>
+    </div>
 
   </div>
 </main>
 
 <footer>
-  <div class="container">
-    <div>© 2026 Gospelar · Gospelar Sunday School</div>
-    <div>
+  <div class="container container-wide">
+    <div class="copy">© 2026 Gospelar · Gospelar Sunday School</div>
+    <div class="links">
       <a href="/">Home</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/terms.html">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/app">Get the App</a>
     </div>
   </div>
 </footer>
+
+<script>
+  // Scroll-reveal observer (matches the index page).
+  const revealIO = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          revealIO.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+  );
+  document.querySelectorAll('[data-reveal]').forEach((el) => revealIO.observe(el));
+
+  // Sticky-nav shadow on scroll.
+  const navEl = document.querySelector('nav.topnav');
+  const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
 
 </body>
 </html>
