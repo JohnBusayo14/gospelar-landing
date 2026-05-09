@@ -20,310 +20,652 @@
 <meta property="og:image" content="https://www.gospelar.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Inter — clean, neutral, pairs with the dashboard typography. -->
+<!-- Manrope (display + body) + Inter (functional labels) + JetBrains Mono (technical IDs).
+     Manrope's geometric warmth carries the modern-medical / "Clinical Futurism" tone;
+     Inter's wide-tracked uppercase carries metadata at 10–11px without losing legibility. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+/* ─────────────────────────────────────────────────────────────────────────
+   Nexus Clinical Identity — Blue primary build
+   Glassmorphism · Tonal layering · Ghost borders · Bento grid · Manrope
+   ───────────────────────────────────────────────────────────────────────── */
 :root {
-  --blue:        #1A56DB;
-  --blue-dark:   #1E40AF;
-  --blue-deeper: #1E3A8A;
-  --blue-light:  #EFF6FF;
-  --blue-soft:   rgba(26,86,219,.08);
-  --text:        #0F172A;
-  --text-soft:   #1E293B;
-  --muted:       #64748B;
-  --border:      #E2E8F0;
-  --bg:          #FFFFFF;
-  --surface:     #F8FAFC;
-  --green:       #10B981;
-  --orange:      #F97316;
-  --shadow-sm:   0 1px 2px rgba(15,23,42,.04);
-  --shadow-md:   0 4px 14px rgba(15,23,42,.06);
-  --shadow-lg:   0 12px 32px rgba(15,23,42,.10);
-  --shadow-blue: 0 12px 32px rgba(26,86,219,.30);
+  /* ── Surfaces (neutral cool whites — "sterile precision") ────────────── */
+  --surface:                   #F5F8FC;
+  --surface-bright:            #FBFCFE;
+  --surface-container-lowest:  #FFFFFF;
+  --surface-container-low:     #EFF4F8;
+  --surface-container:         #EAEFF3;
+  --surface-container-high:    #E4E9ED;
+  --surface-container-highest: #DEE3E7;
+
+  /* ── On-surface ──────────────────────────────────────────────────────── */
+  --on-surface:          #0F172A;
+  --on-surface-variant:  #475569;
+  --on-surface-muted:    #64748B;
+  --inverse-surface:     #0B1220;
+  --inverse-on-surface:  #F1F5F9;
+
+  /* ── Outlines / ghost borders ────────────────────────────────────────── */
+  --outline:        #64748B;
+  --outline-variant:#CBD5E1;
+  --ghost:          rgba(15, 23, 42, 0.07);
+  --ghost-strong:   rgba(15, 23, 42, 0.10);
+
+  /* ── Primary (blue) ──────────────────────────────────────────────────── */
+  --primary:              #1A56DB;
+  --on-primary:           #FFFFFF;
+  --primary-container:    #1E40AF;
+  --on-primary-container: #DBEAFE;
+  --primary-deeper:       #1E3A8A;
+  --primary-soft:         rgba(26, 86, 219, 0.10);
+  --primary-glow:         rgba(26, 86, 219, 0.22);
+  --inverse-primary:      #93C5FD;
+
+  /* ── Secondary (slightly brighter blue) ─────────────────────────────── */
+  --secondary:           #2563EB;
+  --on-secondary:        #FFFFFF;
+  --secondary-container: #BFDBFE;
+
+  /* ── Tertiary (slate, used for muted text + neutral chips) ──────────── */
+  --tertiary:           #475569;
+  --tertiary-container: #E2E8F0;
+
+  /* ── Semantic ───────────────────────────────────────────────────────── */
+  --success:        #059669;
+  --success-soft:   rgba(5, 150, 105, 0.12);
+  --warning:        #F59E0B;
+  --warning-soft:   rgba(245, 158, 11, 0.12);
+  --error:          #DC2626;
+  --error-soft:     rgba(220, 38, 38, 0.10);
+
+  /* ── Glass ──────────────────────────────────────────────────────────── */
+  --glass:        rgba(255, 255, 255, 0.70);
+  --glass-strong: rgba(255, 255, 255, 0.86);
+  --glass-blur:   24px;
+
+  /* ── Shadows ────────────────────────────────────────────────────────── */
+  --shadow-1:    0 1px 3px rgba(15,23,42,0.04);
+  --shadow-2:    0 4px 16px rgba(15,23,42,0.06);
+  --shadow-3:    0 12px 40px rgba(15,23,42,0.10);
+  --shadow-blue: 0 14px 42px rgba(26,86,219,0.32);
+
+  /* ── Radius (high roundedness everywhere) ───────────────────────────── */
+  --r-xs:   0.375rem;
+  --r-sm:   0.625rem;
+  --r:      1rem;
+  --r-md:   1.25rem;
+  --r-lg:   1.5rem;
+  --r-xl:   2rem;
+  --r-2xl:  2.5rem;
+  --r-pill: 9999px;
+
+  /* ── Spacing ────────────────────────────────────────────────────────── */
+  --container-max: 1280px;
+  --section-gap:   6rem;
+  --pad-card:      2rem;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+*::selection { background: var(--primary-soft); color: var(--primary); }
+
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-feature-settings: "cv11" 1, "ss01" 1;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "ss01", "ss02", "cv11";
+  background: var(--surface);
+  color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
   line-height: 1.55;
+  letter-spacing: -0.005em;
+  /* Background mesh — soft blue gradient orbs, fixed so they don't scroll. */
+  background-image:
+    radial-gradient(1100px 700px at 88% -10%, rgba(26,86,219,0.10), transparent 55%),
+    radial-gradient(900px 600px at -10% 30%, rgba(37,99,235,0.06), transparent 60%),
+    radial-gradient(700px 500px at 50% 120%, rgba(147,197,253,0.16), transparent 60%);
+  background-attachment: fixed;
 }
-a { color: var(--blue); text-decoration: none; }
-a:hover { text-decoration: underline; }
+
+a { color: var(--primary); text-decoration: none; transition: color .15s ease; }
+a:hover { color: var(--primary-container); }
 img { max-width: 100%; display: block; }
-.container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
-/* ── NAV ───────────────────────────────────────────────────────────────── */
-nav { position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 50; transition: box-shadow .25s ease, background .25s ease; }
-nav.scrolled { background: rgba(255,255,255,.96); box-shadow: 0 1px 18px rgba(15,23,42,.06); }
-nav .container { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: -0.3px; color: var(--text); }
-.logo:hover { text-decoration: none; }
-.logo-mark { width: 34px; height: 34px; border-radius: 9px; background: var(--blue); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 17px; box-shadow: var(--shadow-sm); }
-.nav-links { display: flex; align-items: center; gap: 28px; }
-.nav-links > a { color: var(--muted); font-weight: 600; font-size: 14px; }
-.nav-links > a:hover { color: var(--text); text-decoration: none; }
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 1.5rem; }
 
-/* Sign-in dropdown */
+/* ─────────────────────────────────────────────────────────────────────────
+   TYPE SCALE
+   ───────────────────────────────────────────────────────────────────────── */
+.display-xl {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.028em;
+}
+.display-lg {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+}
+.headline-md {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+.body-md {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--on-surface-variant);
+}
+.label-caps {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-surface-muted);
+}
+.tag-status {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.id-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BUTTONS — pill-shaped, gradient-filled primary, scale hover
+   ───────────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: -0.005em;
+  border: 0;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  padding: 0.85rem 1.6rem;
+  transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .2s ease, background .15s ease;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary);
+  box-shadow: var(--shadow-blue);
+}
+.btn-primary:hover { transform: scale(1.02); color: var(--on-primary); }
+.btn-ghost {
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  border: 1px solid var(--ghost-strong);
+}
+.btn-ghost:hover { background: var(--surface-container-low); border-color: var(--primary); color: var(--primary); }
+.btn-lg { padding: 1rem 1.85rem; font-size: 1rem; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   STATUS CHIP — tiny Inter pill, used inside cards
+   ───────────────────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--r-xs);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.chip-primary { background: var(--primary-soft); color: var(--primary); }
+.chip-success { background: var(--success-soft); color: var(--success); }
+.chip-warning { background: var(--warning-soft); color: var(--warning); }
+.chip-slate   { background: var(--tertiary-container); color: var(--tertiary); }
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   NAV — pill, glass, sticky
+   ───────────────────────────────────────────────────────────────────────── */
+nav.topnav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 0.75rem 1.5rem;
+  display: flex; justify-content: center;
+}
+nav.topnav .nav-pill {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: var(--container-max);
+  padding: 0.5rem 0.55rem 0.5rem 1.1rem;
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow .25s ease;
+}
+nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
+.brand {
+  display: flex; align-items: center; gap: 0.625rem;
+  font-weight: 800; letter-spacing: -0.015em;
+  color: var(--on-surface); font-size: 1rem;
+}
+.brand:hover { color: var(--on-surface); }
+.brand-mark {
+  width: 32px; height: 32px;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary);
+  display: grid; place-items: center;
+  font-weight: 900; font-size: 0.95rem;
+  box-shadow: var(--shadow-blue);
+}
+.nav-links { display: flex; align-items: center; gap: 1.25rem; }
+.nav-links > a:not(.btn) {
+  color: var(--on-surface-variant);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.nav-links > a:not(.btn):hover { color: var(--on-surface); }
+
 .signin-wrap { position: relative; }
 .signin-toggle {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: transparent; border: 0; padding: 8px 4px;
-  font: inherit; font-weight: 600; font-size: 14px; color: var(--muted); cursor: pointer;
+  background: transparent; border: 0; cursor: pointer;
+  font-family: inherit; font-size: 0.875rem; font-weight: 600;
+  color: var(--on-surface-variant);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 0;
 }
-.signin-toggle:hover { color: var(--text); }
-.signin-toggle .caret { font-size: 10px; transition: transform .15s ease; }
+.signin-toggle:hover { color: var(--on-surface); }
+.signin-toggle .caret { font-size: 9px; transition: transform .15s ease; }
 .signin-wrap.open .signin-toggle .caret { transform: rotate(180deg); }
 .signin-menu {
-  position: absolute; top: calc(100% + 8px); right: 0;
-  min-width: 240px; background: #fff; border: 1px solid var(--border); border-radius: 14px;
-  box-shadow: var(--shadow-lg); padding: 8px;
+  position: absolute; top: calc(100% + 14px); right: 0;
+  min-width: 280px;
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-3);
+  padding: 0.5rem;
   display: none;
+  animation: menuPop .2s cubic-bezier(.22,.61,.36,1);
 }
+@keyframes menuPop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 .signin-wrap.open .signin-menu { display: block; }
 .signin-menu a {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 10px 12px; border-radius: 10px;
-  color: var(--text);
+  display: flex; align-items: center; gap: 0.875rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--r-sm);
+  color: var(--on-surface);
 }
-.signin-menu a:hover { background: var(--surface); text-decoration: none; }
+.signin-menu a:hover { background: var(--surface-container-low); }
 .signin-menu .si-icon { font-size: 22px; }
 .signin-menu .si-title { font-weight: 700; font-size: 14px; }
-.signin-menu .si-sub   { font-weight: 500; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.signin-menu .si-sub { font-weight: 500; font-size: 12px; color: var(--on-surface-muted); margin-top: 1px; }
 
-/* Buttons */
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 11px; font-weight: 700; font-size: 14px; transition: transform .12s ease, box-shadow .2s ease, background .15s ease; cursor: pointer; border: 0; font-family: inherit; }
-.btn:hover { text-decoration: none; }
-.btn-primary { background: var(--blue); color: #fff; }
-.btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: var(--shadow-blue); }
-.btn-ghost   { color: var(--text); border: 1.5px solid var(--border); background: #fff; }
-.btn-ghost:hover { background: var(--surface); border-color: var(--blue); color: var(--blue); }
-.btn-lg { padding: 14px 26px; font-size: 15px; }
-
-/* ── HERO ──────────────────────────────────────────────────────────────── */
-.hero { padding: 80px 0 90px; background: linear-gradient(180deg, var(--blue-light) 0%, #fff 100%); position: relative; overflow: hidden; }
-.hero::before {
-  content: ''; position: absolute; top: -120px; right: -120px;
-  width: 380px; height: 380px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(26,86,219,.18), transparent 70%);
-  pointer-events: none;
+/* ─────────────────────────────────────────────────────────────────────────
+   HERO — bento layout
+   ───────────────────────────────────────────────────────────────────────── */
+.hero { padding: 4.5rem 0 7rem; position: relative; }
+.hero .container { display: grid; grid-template-columns: 7fr 5fr; gap: 3rem; align-items: center; }
+.hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  background: var(--primary-soft);
+  color: var(--primary);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r-pill);
+  margin-bottom: 1.5rem;
 }
-.hero .container { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; position: relative; }
-.hero .eyebrow { display: inline-block; padding: 6px 14px; background: rgba(26,86,219,.12); color: var(--blue); border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .8px; margin-bottom: 24px; text-transform: uppercase; }
-.hero h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 900; letter-spacing: -1.4px; line-height: 1.08; margin-bottom: 22px; }
-.hero h1 .accent { color: var(--blue); }
-.hero p.lead { font-size: 17.5px; color: var(--muted); max-width: 540px; margin-bottom: 32px; }
-.cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-.hero-stats { display: flex; gap: 28px; margin-top: 42px; flex-wrap: wrap; }
-.hero-stat .num { font-size: 26px; font-weight: 900; letter-spacing: -0.6px; }
-.hero-stat .lbl { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 2px; }
-
-/* Hero image — two-stack layout with subtle elevation */
-.hero-art { position: relative; }
-.hero-art .frame {
-  position: relative; aspect-ratio: 4/5;
-  border-radius: 22px; overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border);
+.hero .eyebrow .chip-dot { background: var(--primary); }
+.hero h1 { margin-bottom: 1.25rem; }
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.hero-art .frame img { width: 100%; height: 100%; object-fit: cover; }
-.hero-art .floating-card {
-  position: absolute; right: -22px; bottom: 28px;
-  background: #fff; border: 1px solid var(--border); border-radius: 14px;
-  padding: 14px 16px; box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; gap: 12px;
-  max-width: 220px;
+.hero p.lead {
+  font-size: 1.0625rem;
+  color: var(--on-surface-variant);
+  max-width: 36rem;
+  margin-bottom: 2rem;
 }
-.hero-art .fc-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(16,185,129,.18); }
-.hero-art .fc-text .fc-title { font-size: 13px; font-weight: 700; }
-.hero-art .fc-text .fc-sub   { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.hero .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.hero .trust-row { display: flex; align-items: center; gap: 1rem; margin-top: 2.25rem; flex-wrap: wrap; }
 
-/* ── ROLES ─────────────────────────────────────────────────────────────── */
-section.roles { padding: 90px 0; }
-.section-title { text-align: center; margin-bottom: 56px; }
-.section-title .eyebrow-sm { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 1.4px; color: var(--blue); text-transform: uppercase; margin-bottom: 12px; }
-.section-title h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.9px; line-height: 1.15; margin-bottom: 12px; }
-.section-title p { color: var(--muted); font-size: 17px; max-width: 560px; margin: 0 auto; }
-.roles-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.role {
-  border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
-  background: #fff; transition: transform .18s ease, box-shadow .25s ease, border-color .15s ease;
+.hero-bento {
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-3);
+  position: relative;
+}
+.hero-bento .feature-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; gap: 0.75rem; }
+.hero-bento .feature-img {
+  width: 100%; aspect-ratio: 16/10; border-radius: var(--r); overflow: hidden;
+  border: 1px solid var(--ghost);
+}
+.hero-bento .feature-img img { width: 100%; height: 100%; object-fit: cover; }
+.hero-bento .stats-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem; margin-top: 1.25rem;
+}
+.stat-card {
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r);
+  padding: 1rem 0.85rem;
+  text-align: center;
+}
+.stat-card .stat-num {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.75rem; font-weight: 800; line-height: 1;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.stat-card .stat-lbl {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--on-surface-muted); margin-top: 0.4rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SECTIONS
+   ───────────────────────────────────────────────────────────────────────── */
+.section { padding: var(--section-gap) 0; }
+.section-head { text-align: center; margin-bottom: 3rem; }
+.section-head .label-caps { color: var(--primary); margin-bottom: 0.875rem; display: block; }
+.section-head h2 { margin-bottom: 0.875rem; }
+.section-head p {
+  color: var(--on-surface-variant);
+  font-size: 1.0625rem;
+  max-width: 36rem;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* ── Roles ───────────────────────────────────────────────────────────── */
+.roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+.role-card {
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: transform .3s cubic-bezier(.22,.61,.36,1), box-shadow .3s ease;
   display: flex; flex-direction: column;
+  color: var(--on-surface);
 }
-.role:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(26,86,219,.30); }
-.role-img { aspect-ratio: 16/10; overflow: hidden; }
-.role-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
-.role:hover .role-img img { transform: scale(1.04); }
-.role-body { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; }
-.role .pill { align-self: flex-start; padding: 4px 10px; background: var(--blue-soft); color: var(--blue); border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; margin-bottom: 12px; }
-.role h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 8px; }
-.role p { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px; flex: 1; }
-.role .role-cta { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-weight: 700; font-size: 14px; }
-.role .role-cta .arr { transition: transform .15s ease; }
-.role:hover .role-cta .arr { transform: translateX(3px); }
-
-/* ── IMAGE BAND ─────────────────────────────────────────────────────────── */
-.band { position: relative; height: 360px; overflow: hidden; }
-.band img { width: 100%; height: 100%; object-fit: cover; }
-.band::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,23,42,.78) 0%, rgba(15,23,42,.55) 50%, rgba(15,23,42,.30) 100%); }
-.band .container { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: center; color: #fff; }
-.band h2 { font-size: clamp(26px, 3.6vw, 36px); font-weight: 800; letter-spacing: -0.8px; max-width: 600px; line-height: 1.15; margin-bottom: 14px; }
-.band p { font-size: 16px; max-width: 540px; opacity: .92; }
-
-/* ── FEATURES ───────────────────────────────────────────────────────────── */
-section.features { padding: 100px 0; background: var(--surface); }
-.grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.card {
-  padding: 28px; background: #fff; border: 1px solid var(--border); border-radius: 18px;
-  transition: transform .15s ease, box-shadow .25s ease;
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-3);
+  color: var(--on-surface);
 }
-.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.card .icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; margin-bottom: 18px; }
-.card .icon.blue   { background: var(--blue-light); }
-.card .icon.green  { background: #ECFDF5; }
-.card .icon.orange { background: #FFF7ED; }
-.card h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.2px; margin-bottom: 10px; }
-.card p { color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+.role-img { aspect-ratio: 16/9; overflow: hidden; }
+.role-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.role-card:hover .role-img img { transform: scale(1.06); }
+.role-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; gap: 0.625rem; }
+.role-body h3 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.012em; }
+.role-body p { color: var(--on-surface-variant); font-size: 0.9375rem; line-height: 1.55; flex: 1; }
+.role-cta {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-weight: 700; font-size: 0.9375rem; color: var(--primary);
+}
+.role-cta .arr { transition: transform .2s ease; }
+.role-card:hover .role-cta .arr { transform: translateX(4px); }
 
-/* ── DOWNLOAD STRIP ─────────────────────────────────────────────────────── */
-.download {
-  padding: 90px 0; background: linear-gradient(135deg, var(--blue) 0%, var(--blue-deeper) 100%); color: #fff;
+/* ── Bento features ──────────────────────────────────────────────────── */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+}
+.bento .panel {
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r-lg);
+  padding: var(--pad-card);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.bento .panel:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.panel-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-sm);
+  display: grid; place-items: center;
+  font-size: 22px;
+  margin-bottom: 1rem;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.panel h3 { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+.panel p { color: var(--on-surface-variant); font-size: 0.9rem; line-height: 1.55; }
+.panel-half  { grid-column: span 4; }
+.panel-third { grid-column: span 4; }
+.panel-feature {
+  grid-column: span 6; padding: 2.5rem;
+  background:
+    linear-gradient(var(--glass-strong), var(--glass-strong)) padding-box,
+    linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+  border: 1px solid transparent;
+}
+.panel-feature h3 { font-size: 1.25rem; }
+.panel-feature .panel-icon {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+/* ── Image band ──────────────────────────────────────────────────────── */
+.band {
+  position: relative;
+  margin: 0 1.5rem;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  isolation: isolate;
+}
+.band img { width: 100%; height: 360px; object-fit: cover; }
+.band::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(15,23,42,0.78) 0%, rgba(30,64,175,0.55) 50%, rgba(15,23,42,0.30) 100%);
+}
+.band .band-content {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 3rem; color: white; max-width: var(--container-max);
+}
+.band .band-content .label-caps { color: rgba(255,255,255,0.78); margin-bottom: 0.875rem; display: block; }
+.band h2 { color: white; max-width: 36rem; line-height: 1.15; }
+.band p { color: rgba(255,255,255,0.92); max-width: 32rem; margin-top: 0.875rem; font-size: 1rem; }
+
+/* ── Download strip ──────────────────────────────────────────────────── */
+.download-section { padding: 4rem 0; }
+.download-card {
   position: relative; overflow: hidden;
+  border-radius: var(--r-xl);
+  padding: 4rem 3rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 50%, var(--primary-deeper) 100%);
+  color: white;
+  isolation: isolate;
 }
-.download::before {
-  content: ''; position: absolute; top: -200px; left: -100px;
+.download-card::before {
+  content: ''; position: absolute; top: -200px; left: -150px;
   width: 500px; height: 500px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.12), transparent 65%);
+  background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+  z-index: 0;
 }
-.download .container { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; position: relative; }
-.download h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: -0.8px; margin-bottom: 14px; line-height: 1.15; }
-.download p { color: rgba(255,255,255,.88); font-size: 16.5px; margin-bottom: 28px; max-width: 540px; }
-.store-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.download-card::after {
+  content: ''; position: absolute; bottom: -100px; right: -100px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(147,197,253,0.20), transparent 65%);
+  z-index: 0;
+}
+.download-card .container {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem;
+  align-items: center; padding: 0; max-width: 100%;
+}
+.download-card > * { position: relative; z-index: 1; }
+.download-card h2 { color: white; margin-bottom: 0.875rem; }
+.download-card p {
+  color: rgba(255,255,255,0.86);
+  font-size: 1.0625rem; max-width: 36rem; margin-bottom: 1.75rem;
+}
+.store-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
 .store-badge {
   display: inline-block; height: 56px;
-  border-radius: 11px; overflow: hidden;
-  transition: transform .25s cubic-bezier(.22,.61,.36,1), filter .2s ease, box-shadow .25s ease;
-  text-decoration: none; line-height: 0;
+  border-radius: var(--r-sm);
+  overflow: hidden; line-height: 0;
+  transition: transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s ease, filter .2s ease;
 }
-.store-badge:hover { transform: translateY(-3px); filter: brightness(1.08); box-shadow: 0 10px 28px rgba(0,0,0,.35); text-decoration: none; }
+.store-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.06);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
 .store-badge img { height: 100%; width: auto; display: block; }
-.dl-options-btn { background: rgba(255,255,255,.06); color: #fff; border-color: rgba(255,255,255,.18); }
-.dl-options-btn:hover { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.30); }
-.dl-side { position: relative; }
-.dl-side .frame { aspect-ratio: 1/1; border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.15); box-shadow: var(--shadow-lg); }
-.dl-side .frame img { width: 100%; height: 100%; object-fit: cover; }
+.dl-options-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: var(--r-pill);
+  color: white;
+  font-weight: 700; font-size: 0.875rem;
+  transition: background .15s ease, border-color .15s ease;
+}
+.dl-options-btn:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.40);
+  color: white;
+}
+.download-side .frame {
+  aspect-ratio: 1/1;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.20);
+  box-shadow: var(--shadow-3);
+}
+.download-side .frame img { width: 100%; height: 100%; object-fit: cover; }
 
-/* ── LANGUAGES STRIP ────────────────────────────────────────────────────── */
-.lang-strip { padding: 56px 0; background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.lang-strip .container { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
-.lang { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--muted); font-size: 15px; }
-.lang .flag { font-size: 22px; }
+/* ── Languages strip ─────────────────────────────────────────────────── */
+.lang-strip {
+  padding: 3rem 0;
+  display: flex; justify-content: center; align-items: center;
+  gap: 1rem; flex-wrap: wrap;
+}
+.lang-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--ghost);
+  border-radius: var(--r-pill);
+  font-weight: 600; font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+}
+.lang-pill .flag { font-size: 1.125rem; }
 
-/* ── FOOTER ─────────────────────────────────────────────────────────────── */
-footer { padding: 56px 0 44px; background: var(--surface); border-top: 1px solid var(--border); }
-footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-footer .links { display: flex; gap: 24px; flex-wrap: wrap; }
-footer .links a { color: var(--muted); font-size: 14px; font-weight: 600; }
-footer .links a:hover { color: var(--text); text-decoration: none; }
-footer .copy { color: var(--muted); font-size: 13px; }
+/* ── Footer ──────────────────────────────────────────────────────────── */
+footer {
+  padding: 3rem 0 2.5rem;
+  border-top: 1px solid var(--ghost);
+}
+footer .container {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+footer .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+footer .links a { color: var(--on-surface-variant); font-weight: 600; font-size: 0.875rem; }
+footer .links a:hover { color: var(--on-surface); }
+footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .hero .container, .download .container { grid-template-columns: 1fr; gap: 36px; }
-  .hero-art { order: -1; max-width: 420px; margin: 0 auto; }
-  .hero-art .floating-card { right: 8px; }
-  .dl-side { display: none; }
-  .band { height: 300px; }
+/* ─────────────────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .hero .container { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-bento { order: -1; max-width: 480px; margin: 0 auto; width: 100%; }
+  .download-card .container { grid-template-columns: 1fr; }
+  .download-side { display: none; }
+  .panel-half, .panel-third, .panel-feature { grid-column: span 12; }
+  .band img { height: 300px; }
+  .band .band-content { padding: 0 1.5rem; }
+  :root { --section-gap: 4.5rem; }
 }
 @media (max-width: 640px) {
   .nav-links > a:not(.btn) { display: none; }
   .signin-wrap { display: none; }
-  .hero { padding: 56px 0 64px; }
-  section.features, section.roles, .download { padding: 72px 0; }
-  .hero-stats { gap: 18px; margin-top: 28px; }
-  footer .container { justify-content: center; text-align: center; }
-  .store-badge { height: 48px; }
+  .download-card { padding: 2.5rem 1.5rem; }
+  .hero { padding: 3rem 0 4rem; }
 }
 
-/* ── Animations & motion ───────────────────────────────────────────────────
-   All motion gated behind prefers-reduced-motion so users with vestibular
-   sensitivities aren't forced through it. */
+/* ─────────────────────────────────────────────────────────────────────────
+   ANIMATIONS — gated by prefers-reduced-motion
+   ───────────────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
 
-  /* Scroll-reveal — used on hero copy, section headers, role cards, feature
-     cards, image band, download strip. Stagger via inline `--reveal-delay`. */
   [data-reveal] {
     opacity: 0;
     transform: translateY(22px);
-    transition: opacity .7s cubic-bezier(.22,.61,.36,1),
-                transform .7s cubic-bezier(.22,.61,.36,1);
+    transition:
+      opacity   .8s cubic-bezier(.22,.61,.36,1),
+      transform .8s cubic-bezier(.22,.61,.36,1);
     transition-delay: var(--reveal-delay, 0s);
     will-change: opacity, transform;
   }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
 
-  /* Subtle vertical float on the hero image. */
   @keyframes floatY {
     0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-10px); }
+    50%      { transform: translateY(-8px); }
   }
-  .hero-art .frame { animation: floatY 6.5s ease-in-out infinite; }
+  .hero-bento { animation: floatY 7s ease-in-out infinite; }
 
-  /* Pulsing ring on the green status dot in the floating card. */
-  @keyframes pulseRing {
-    0%, 100% { box-shadow: 0 0 0 4px  rgba(16,185,129,.18); }
-    50%      { box-shadow: 0 0 0 10px rgba(16,185,129,.06); }
+  @keyframes pulseDot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(26,86,219,0.50); }
+    50%      { box-shadow: 0 0 0 6px rgba(26,86,219,0.00); }
   }
-  .hero-art .fc-dot { animation: pulseRing 2.4s ease-in-out infinite; }
-
-  /* Slow drift on the hero background orb so the hero never feels static. */
-  @keyframes driftOrb {
-    0%, 100% { transform: translate(0, 0)  scale(1); }
-    50%      { transform: translate(-26px, 18px) scale(1.05); }
-  }
-  .hero::before { animation: driftOrb 16s ease-in-out infinite; }
-
-  /* Soft shimmer on the eyebrow tag — a one-shot accent on first load. */
-  @keyframes eyebrowShine {
-    0%   { background: rgba(26,86,219,.12); }
-    50%  { background: rgba(26,86,219,.22); }
-    100% { background: rgba(26,86,219,.12); }
-  }
-  .hero .eyebrow { animation: eyebrowShine 4s ease-in-out infinite; }
-
-  /* Stagger reveal across feature-card and role grids — child order drives
-     the delay so I don't have to set --reveal-delay inline on every card. */
-  .grid > [data-reveal]:nth-child(1)  { --reveal-delay: 0s;     }
-  .grid > [data-reveal]:nth-child(2)  { --reveal-delay: .06s;   }
-  .grid > [data-reveal]:nth-child(3)  { --reveal-delay: .12s;   }
-  .grid > [data-reveal]:nth-child(4)  { --reveal-delay: .18s;   }
-  .grid > [data-reveal]:nth-child(5)  { --reveal-delay: .24s;   }
-  .grid > [data-reveal]:nth-child(6)  { --reveal-delay: .30s;   }
+  .hero .eyebrow .chip-dot { animation: pulseDot 2s ease-in-out infinite; }
 }
-
-/* Smooth scroll for in-page anchors (already in CSS by default in modern
-   browsers but explicit makes intent clear). */
-html { scroll-behavior: smooth; }
-
 </style>
 </head>
 <body>
 
-<!-- ─────────────────────────────────────────────────────────────────────────
-     NAV
-     ───────────────────────────────────────────────────────────────────── -->
-<nav>
-  <div class="container">
-    <a href="/" class="logo"><span class="logo-mark">G</span> Gospelar</a>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     NAV — pill, glass, sticky
+     ══════════════════════════════════════════════════════════════════════ -->
+<nav class="topnav">
+  <div class="nav-pill">
+    <a href="/" class="brand">
+      <span class="brand-mark">G</span>
+      <span>Gospelar</span>
+    </a>
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="/about">About</a>
 
-      <!-- Sign-in dropdown — toggles open on click. -->
       <div class="signin-wrap" id="signin-wrap">
         <button class="signin-toggle" type="button" onclick="toggleSignin()" aria-haspopup="menu" aria-expanded="false">
           Sign in <span class="caret">▼</span>
@@ -351,204 +693,225 @@ html { scroll-behavior: smooth; }
   </div>
 </nav>
 
-<!-- ─────────────────────────────────────────────────────────────────────────
+<!-- ═══════════════════════════════════════════════════════════════════════
      HERO
-     ───────────────────────────────────────────────────────────────────── -->
+     ══════════════════════════════════════════════════════════════════════ -->
 <header class="hero">
   <div class="container">
     <div>
-      <span class="eyebrow" data-reveal>Gospelar Sunday School</span>
-      <h1 data-reveal style="--reveal-delay:.05s">Sunday School, <span class="accent">in your pocket.</span></h1>
-      <p class="lead" data-reveal style="--reveal-delay:.15s">
+      <span class="eyebrow tag-status" data-reveal>
+        <span class="chip-dot"></span>
+        Q4 2026 — Quarter is live
+      </span>
+      <h1 class="display-xl" data-reveal style="--reveal-delay:.08s">
+        Sunday School,<br>
+        <span class="accent">in your pocket.</span>
+      </h1>
+      <p class="lead body-md" data-reveal style="--reveal-delay:.18s">
         Weekly lessons, hymns, quizzes and class management — built for
         Gospelar churches in English, Yorùbá, Igbo and Hausa.
         Free for students, with sign-in for teachers and church admins.
       </p>
-      <div class="cta-row" data-reveal style="--reveal-delay:.25s">
+      <div class="cta-row" data-reveal style="--reveal-delay:.28s">
         <a href="/app" class="btn btn-primary btn-lg">📲 Download the App</a>
-        <a href="#roles" class="btn btn-ghost btn-lg">Sign in to a dashboard</a>
+        <a href="#roles" class="btn btn-ghost btn-lg">Sign in</a>
       </div>
 
-      <div class="hero-stats" data-reveal style="--reveal-delay:.35s">
-        <div class="hero-stat"><div class="num" data-count="13">0</div><div class="lbl">Lessons / quarter</div></div>
-        <div class="hero-stat"><div class="num" data-count="4">0</div><div class="lbl">Languages</div></div>
-        <div class="hero-stat"><div class="num" data-count="4">0</div><div class="lbl">Age groups</div></div>
+      <div class="trust-row" data-reveal style="--reveal-delay:.38s">
+        <span class="label-caps">Trusted by</span>
+        <span class="chip chip-slate"><span class="chip-dot"></span>GOFAMINT churches</span>
+        <span class="chip chip-success"><span class="chip-dot"></span>Pastors &amp; teachers</span>
       </div>
     </div>
 
-    <div class="hero-art" data-reveal style="--reveal-delay:.1s">
-      <div class="frame">
-        <!-- Hero image — high-quality community photo. Swap in /images if you have a better one. -->
-        <img src="/images/premium_photo-1723924908899-a3d51f2efd76.avif"
-             alt="Gospelar Sunday School community" loading="eager">
+    <div class="hero-bento" data-reveal style="--reveal-delay:.16s">
+      <div class="feature-row">
+        <div>
+          <div class="label-caps">This week</div>
+          <div class="headline-md" style="margin-top:.4rem">Lesson 4 — Christian Identity</div>
+        </div>
+        <span class="chip chip-success"><span class="chip-dot"></span>Ready</span>
       </div>
-      <div class="floating-card" aria-hidden="true">
-        <span class="fc-dot"></span>
-        <div class="fc-text">
-          <div class="fc-title">Lesson 4 ready</div>
-          <div class="fc-sub">Tap to start studying</div>
+      <div class="feature-img">
+        <img src="/images/premium_photo-1723924908899-a3d51f2efd76.avif" alt="Gospelar Sunday School community" loading="eager">
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" data-count="13">0</div>
+          <div class="stat-lbl">Lessons</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="4">0</div>
+          <div class="stat-lbl">Languages</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-count="4">0</div>
+          <div class="stat-lbl">Age groups</div>
         </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ─────────────────────────────────────────────────────────────────────────
-     ROLES — student / church admin / main admin
-     ───────────────────────────────────────────────────────────────────── -->
-<section class="roles" id="roles">
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ROLES
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="roles">
   <div class="container">
-    <div class="section-title" data-reveal>
-      <span class="eyebrow-sm">Choose your path</span>
-      <h2>Built for every role at the church</h2>
+    <div class="section-head" data-reveal>
+      <span class="label-caps">Choose your path</span>
+      <h2 class="display-lg">Built for every role at the church</h2>
       <p>Whether you're sitting in a class or running a congregation, there's a place to start.</p>
     </div>
     <div class="roles-grid">
-
-      <!-- STUDENT -->
-      <a class="role" href="/app" data-reveal>
+      <a class="role-card" href="/app" data-reveal>
         <div class="role-img">
           <img src="/images/photo-1569292567773-229e2b7521ee.avif" alt="Student studying with the app" loading="lazy">
         </div>
         <div class="role-body">
-          <span class="pill">Student</span>
+          <span class="chip chip-primary">Student</span>
           <h3>Get the mobile app</h3>
-          <p>Free for everyone. Read this week's lesson, take the quiz, climb the leaderboard, and sing along with the hymn book — all offline-ready.</p>
+          <p>Free for everyone. Read this week's lesson, take the quiz, climb the leaderboard, and sing along with the hymn book — offline-ready.</p>
           <span class="role-cta">Download <span class="arr">→</span></span>
         </div>
       </a>
 
-      <!-- CHURCH ADMIN -->
-      <a class="role" href="https://church.gospelar.com" data-reveal style="--reveal-delay:.1s">
+      <a class="role-card" href="https://church.gospelar.com" data-reveal style="--reveal-delay:.1s">
         <div class="role-img">
           <img src="/images/photo-1662151926492-abb5c7ae485c.avif" alt="Church admin reviewing engagement" loading="lazy">
         </div>
         <div class="role-body">
-          <span class="pill">Church admin</span>
+          <span class="chip chip-primary">Church admin</span>
           <h3>Sign in as church leader</h3>
-          <p>See engagement across your congregation in real time: attendance, top learners, lesson completions and teacher activity — all scoped to your church.</p>
+          <p>See engagement across your congregation in real time: attendance, top learners, lesson completions and teacher activity — scoped to your church.</p>
           <span class="role-cta">Sign in <span class="arr">→</span></span>
         </div>
       </a>
 
-      <!-- MAIN ADMIN -->
-      <a class="role" href="https://admin.gospelar.com" data-reveal style="--reveal-delay:.2s">
+      <a class="role-card" href="https://admin.gospelar.com" data-reveal style="--reveal-delay:.2s">
         <div class="role-img">
           <img src="/images/photo-1642307063044-b47294fbfe87.avif" alt="Main admin managing content" loading="lazy">
         </div>
         <div class="role-body">
-          <span class="pill">Main admin</span>
+          <span class="chip chip-primary">Main admin</span>
           <h3>Sign in as main admin</h3>
           <p>Manage units, lessons, hymns and translations. Approve incoming church signups, configure pricing and review system-wide insights.</p>
           <span class="role-cta">Sign in <span class="arr">→</span></span>
         </div>
       </a>
-
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────────────────────────────────────────────────────
+<!-- ═══════════════════════════════════════════════════════════════════════
      IMAGE BAND
-     ───────────────────────────────────────────────────────────────────── -->
-<section class="band" aria-label="Community">
-  <img src="/images/photo-1526746323784-6bc814d79273.avif" alt="" loading="lazy">
-  <div class="container" data-reveal>
-    <h2>Sunday School the way your church already runs it.</h2>
-    <p>Designed around the Gospelar teaching pattern — not generic LMS bloat. Teachers mark attendance, learners take quizzes, leaders watch the numbers move.</p>
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" style="padding-top:0">
+  <div class="band" data-reveal>
+    <img src="/images/photo-1526746323784-6bc814d79273.avif" alt="" loading="lazy">
+    <div class="band-content container">
+      <span class="label-caps">Built for the way you teach</span>
+      <h2 class="display-lg">Sunday School the way your church already runs it.</h2>
+      <p>Designed around the GOFAMINT teaching pattern — not generic LMS bloat. Teachers mark attendance, learners take quizzes, leaders watch the numbers move.</p>
+    </div>
   </div>
 </section>
 
-<!-- ─────────────────────────────────────────────────────────────────────────
-     FEATURES
-     ───────────────────────────────────────────────────────────────────── -->
-<section class="features" id="features">
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FEATURES — Bento
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="features">
   <div class="container">
-    <div class="section-title" data-reveal>
-      <span class="eyebrow-sm">Inside the app</span>
-      <h2>Everything you need for Sunday School</h2>
+    <div class="section-head" data-reveal>
+      <span class="label-caps">Inside the app</span>
+      <h2 class="display-lg">Everything you need for Sunday School</h2>
       <p>One app for students, teachers, and church administrators — designed for offline-first use anywhere in Nigeria.</p>
     </div>
-    <div class="grid">
-      <div class="card" data-reveal>
-        <div class="icon blue">📖</div>
-        <h3>Weekly lessons</h3>
-        <p>Every quarter's lessons across all four age groups — Children, Intermediate, Youth, Adult — translated into the language of your service.</p>
+
+    <div class="bento">
+      <div class="panel panel-feature" data-reveal>
+        <div class="panel-icon">📖</div>
+        <h3>Weekly lessons in four languages</h3>
+        <p>Every quarter's lessons across all four age groups — Children, Intermediate, Youth, Adult — translated and ready in English, Yorùbá, Igbo and Hausa. Switch language instantly from Settings; the entire app follows.</p>
       </div>
-      <div class="card" data-reveal>
-        <div class="icon orange">🎵</div>
+      <div class="panel panel-half" data-reveal style="--reveal-delay:.06s">
+        <div class="panel-icon">🎵</div>
         <h3>Hymns offline</h3>
         <p>The full Gospel Hymn Book in your pocket. Search by number or first line, share with your class.</p>
       </div>
-      <div class="card" data-reveal>
-        <div class="icon green">🎯</div>
+      <div class="panel panel-half" data-reveal style="--reveal-delay:.10s">
+        <div class="panel-icon">🎯</div>
         <h3>Quizzes &amp; leaderboards</h3>
         <p>Reinforce each lesson with a short quiz. Friendly leaderboards keep teens and adults engaged.</p>
       </div>
-      <div class="card" data-reveal>
-        <div class="icon blue">👨‍🏫</div>
+      <div class="panel panel-third" data-reveal style="--reveal-delay:.14s">
+        <div class="panel-icon">👨‍🏫</div>
         <h3>Teacher dashboard</h3>
         <p>Mark attendance and award marks for memory verses and answered questions — works fully offline, syncs when you're back online.</p>
       </div>
-      <div class="card" data-reveal>
-        <div class="icon orange">⛪</div>
+      <div class="panel panel-third" data-reveal style="--reveal-delay:.18s">
+        <div class="panel-icon">⛪</div>
         <h3>Church admin</h3>
         <p>Pastors and superintendents see real-time engagement: who's attending, who's completing lessons, top learners by class.</p>
       </div>
-      <div class="card" data-reveal>
-        <div class="icon green">🌍</div>
+      <div class="panel panel-third" data-reveal style="--reveal-delay:.22s">
+        <div class="panel-icon">🌍</div>
         <h3>Four languages</h3>
-        <p>English, Yorùbá, Igbo and Hausa — every screen, lesson title and notification translated. Switch instantly from Settings.</p>
+        <p>English, Yorùbá, Igbo and Hausa — every screen, lesson title and notification translated.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────────────────────────────────────────────────────
-     DOWNLOAD STRIP — primary CTA for the mobile app
-     ───────────────────────────────────────────────────────────────────── -->
-<section class="download" id="download">
-  <div class="container">
-    <div data-reveal>
-      <h2>Download Gospelar today.</h2>
-      <p>Free for students. Tap a store badge to install — or visit the dedicated download page for direct links and the latest APK.</p>
-      <div class="store-row">
-        <!-- TODO: when published, point href to the real store URLs.
-             The badge images live at /images/google-play-badge.png and
-             /images/app-store-badge.png — drop the official artwork there. -->
-        <a class="store-badge" href="/app" aria-label="Get it on Google Play">
-          <img src="/images/google-play-badge.png" alt="Get it on Google Play" />
-        </a>
-        <a class="store-badge" href="/app" aria-label="Download on the App Store">
-          <img src="/images/app-store-badge.png" alt="Download on the App Store" />
-        </a>
-        <a href="/app" class="btn btn-ghost dl-options-btn">All download options →</a>
-      </div>
-    </div>
-
-    <div class="dl-side" data-reveal style="--reveal-delay:.15s">
-      <div class="frame">
-        <img src="/images/photo-1563902341721-029085ad9347.avif" alt="Gospelar mobile preview" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────────────────────────────────────────────────────
-     LANGUAGES + FOOTER
-     ───────────────────────────────────────────────────────────────────── -->
-<div class="lang-strip">
-  <div class="container">
-    <div class="lang"><span class="flag">🇬🇧</span> English</div>
-    <div class="lang"><span class="flag">🇳🇬</span> Yorùbá</div>
-    <div class="lang"><span class="flag">🇳🇬</span> Igbo</div>
-    <div class="lang"><span class="flag">🇳🇬</span> Hausa</div>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     LANGUAGES
+     ══════════════════════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="lang-strip" data-reveal>
+    <span class="lang-pill"><span class="flag">🇬🇧</span> English</span>
+    <span class="lang-pill"><span class="flag">🇳🇬</span> Yorùbá</span>
+    <span class="lang-pill"><span class="flag">🇳🇬</span> Igbo</span>
+    <span class="lang-pill"><span class="flag">🇳🇬</span> Hausa</span>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════════════════
+     DOWNLOAD
+     ══════════════════════════════════════════════════════════════════════ -->
+<section class="download-section">
+  <div class="container">
+    <div class="download-card">
+      <div class="container">
+        <div data-reveal>
+          <span class="label-caps" style="color:rgba(255,255,255,0.78); display:block; margin-bottom:0.875rem">Get started today</span>
+          <h2 class="display-lg">Download Gospelar.</h2>
+          <p>Free for students. Tap a store badge to install — or visit the dedicated download page for direct links and the latest APK.</p>
+          <div class="store-row">
+            <a class="store-badge" href="/app" aria-label="Get it on Google Play">
+              <img src="/images/google-play-badge.png" alt="Get it on Google Play" />
+            </a>
+            <a class="store-badge" href="/app" aria-label="Download on the App Store">
+              <img src="/images/app-store-badge.png" alt="Download on the App Store" />
+            </a>
+            <a href="/app" class="dl-options-btn">All download options →</a>
+          </div>
+        </div>
+        <div class="download-side" data-reveal style="--reveal-delay:.15s">
+          <div class="frame">
+            <img src="/images/photo-1563902341721-029085ad9347.avif" alt="Gospelar mobile preview" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════════════════════════════ -->
 <footer>
   <div class="container">
-    <div class="copy">© 2026 Gospelar · Gospelar Sunday School</div>
+    <div class="copy">© 2026 Gospelar · GOFAMINT Sunday School</div>
     <div class="links">
       <a href="/about">About</a>
       <a href="/privacy">Privacy</a>
@@ -565,7 +928,6 @@ html { scroll-behavior: smooth; }
     const open = wrap.classList.toggle('open');
     wrap.querySelector('.signin-toggle').setAttribute('aria-expanded', String(open));
   }
-  // Click outside to close.
   document.addEventListener('click', (e) => {
     if (!wrap.contains(e.target)) {
       wrap.classList.remove('open');
@@ -573,10 +935,7 @@ html { scroll-behavior: smooth; }
     }
   });
 
-  // ── Scroll-reveal ─────────────────────────────────────────────────────
-  // Adds .is-visible to every [data-reveal] when it enters the viewport.
-  // Each element is observed once, then released — no scroll listener
-  // overhead for the lifetime of the page.
+  // ── Scroll-reveal observer ────────────────────────────────────────────
   const revealIO = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
@@ -591,9 +950,6 @@ html { scroll-behavior: smooth; }
   document.querySelectorAll('[data-reveal]').forEach((el) => revealIO.observe(el));
 
   // ── Stat count-up ─────────────────────────────────────────────────────
-  // Animates [data-count="13"] from 0 → 13 with a cubic ease-out when the
-  // hero stats scroll into view. Tabular-nums keeps the digit width stable
-  // while the number changes.
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
   const countUp = (el) => {
     const target = parseInt(el.dataset.count, 10);
@@ -622,10 +978,7 @@ html { scroll-behavior: smooth; }
   document.querySelectorAll('[data-count]').forEach((el) => countIO.observe(el));
 
   // ── Sticky-nav shadow on scroll ───────────────────────────────────────
-  // Adds a soft shadow + slightly more opaque bg once the page has scrolled
-  // off the hero — small touch but it's what separates "marketing template"
-  // from "feels engineered".
-  const navEl = document.querySelector('nav');
+  const navEl = document.querySelector('nav.topnav');
   const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
   document.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
