@@ -624,6 +624,9 @@ footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
   .download-card .container { grid-template-columns: 1fr; }
   .download-side { display: none; }
   .panel-half, .panel-third, .panel-feature { grid-column: span 12; }
+  /* Contact bento: 6 panels in a 3×2 grid on tablet (was uneven on small
+     viewports because each panel kept its desktop "span 4"). */
+  .contact-bento .contact-panel { grid-column: span 6; }
   .band img { height: 300px; }
   .band .band-content { padding: 0 1.5rem; }
   :root { --section-gap: 4.5rem; }
@@ -633,6 +636,21 @@ footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
   .signin-wrap { display: none; }
   .download-card { padding: 2.5rem 1.5rem; }
   .hero { padding: 3rem 0 4rem; }
+  /* Contact bento: tighter 2-col on phones with reduced chunk to keep the
+     section short and tap-friendly. Internal padding 1.25rem (was 2rem),
+     icon 36px (was 44px), title/copy a tier smaller, decorative arrow
+     hidden because the whole card is the link target anyway. */
+  .contact-bento { gap: 0.75rem; }
+  .contact-bento .contact-panel { padding: 1.25rem; }
+  .contact-panel .panel-icon { width: 36px; height: 36px; margin-bottom: 0.625rem; }
+  .contact-panel .panel-icon svg { width: 18px; height: 18px; }
+  .contact-panel h3 { font-size: 0.9375rem; margin-bottom: 0.25rem; }
+  .contact-panel p  { font-size: 0.8125rem; line-height: 1.45; }
+  .contact-arrow    { display: none; }
+}
+@media (max-width: 420px) {
+  /* Tiny phones: full-width single column so labels never wrap awkwardly. */
+  .contact-bento .contact-panel { grid-column: span 12; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
