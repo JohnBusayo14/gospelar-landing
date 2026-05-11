@@ -1,11 +1,26 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.gofamint.sundayschool",
       "sha256_cert_fingerprints": [
         "REPLACE_WITH_PLAY_APP_SIGNING_SHA256_FINGERPRINT"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gospelar.sundayschool",
+      "sha256_cert_fingerprints": [
+        "D7:7A:AC:87:0E:E6:FF:BF:BC:C4:16:96:16:B2:F3:82:07:14:2A:A8:53:09:32:A1:28:C5:34:38:51:B9:0F:4F"
       ]
     }
   }
