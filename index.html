@@ -322,7 +322,13 @@ nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
 /* ─────────────────────────────────────────────────────────────────────────
    HERO — bento layout
    ───────────────────────────────────────────────────────────────────────── */
-.hero { padding: 4.5rem 0 7rem; position: relative; }
+.hero {
+  padding: 4.5rem 0 7rem;
+  position: relative;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(26, 86, 219, 0.14), transparent 60%),
+    linear-gradient(180deg, rgba(26, 86, 219, 0.08) 0%, rgba(26, 86, 219, 0.02) 100%);
+}
 .hero .container { display: grid; grid-template-columns: 7fr 5fr; gap: 3rem; align-items: center; }
 .hero .eyebrow {
   display: inline-flex; align-items: center; gap: 0.5rem;
