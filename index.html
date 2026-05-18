@@ -323,7 +323,11 @@ nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
    HERO — bento layout, deep-blue gradient with decorative layers
    ───────────────────────────────────────────────────────────────────────── */
 .hero {
-  padding: 5.5rem 0 8rem;
+  /* Pull the hero up under the floating glass nav pill so the page is
+     edge-to-edge blue from the very top — only the pill itself stays glass.
+     padding-top compensates so content still clears the nav. */
+  margin-top: -6.5rem;
+  padding: 11.5rem 0 8rem;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -670,7 +674,9 @@ footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
   .nav-links > a:not(.btn) { display: none; }
   .signin-wrap { display: none; }
   .download-card { padding: 2.5rem 1.5rem; }
-  .hero { padding: 3rem 0 4rem; }
+  /* Keep the negative top margin so the blue still bleeds under the nav pill
+     on phones; bump padding-top to clear the pill with breathing room. */
+  .hero { padding: 9rem 0 4rem; }
   /* Contact bento: tighter 2-col on phones with reduced chunk to keep the
      section short and tap-friendly. Internal padding 1.25rem (was 2rem),
      icon 36px (was 44px), title/copy a tier smaller, decorative arrow
