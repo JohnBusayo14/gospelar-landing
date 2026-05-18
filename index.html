@@ -328,35 +328,7 @@ nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
   isolation: isolate;
   overflow: hidden;
   color: #F1F5F9;
-  background:
-    radial-gradient(900px 600px at 12% 8%,  rgba(96, 165, 250, 0.38), transparent 55%),
-    radial-gradient(700px 500px at 88% 92%, rgba(147, 197, 253, 0.22), transparent 55%),
-    radial-gradient(600px 400px at 95% 10%, rgba(59, 130, 246, 0.30), transparent 60%),
-    linear-gradient(135deg, #0B1E5C 0%, #1A56DB 55%, #1E3A8A 100%);
-}
-/* Decorative grid — fades out toward the edges via mask */
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  z-index: -2;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 45%, #000 30%, transparent 75%);
-          mask-image: radial-gradient(ellipse 75% 60% at 50% 45%, #000 30%, transparent 75%);
-}
-/* Soft glow orbs floating behind the content */
-.hero::after {
-  content: '';
-  position: absolute;
-  width: 620px; height: 620px;
-  top: -260px; right: -180px;
-  background: radial-gradient(circle, rgba(147, 197, 253, 0.42) 0%, transparent 65%);
-  filter: blur(40px);
-  z-index: -1;
-  border-radius: 50%;
-  pointer-events: none;
+  background: #1A56DB;
 }
 .hero .container { display: grid; grid-template-columns: 7fr 5fr; gap: 3rem; align-items: center; position: relative; z-index: 1; }
 .hero .eyebrow {
