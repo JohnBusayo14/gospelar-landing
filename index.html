@@ -503,7 +503,13 @@ nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
 }
 .panel h3 { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
 .panel p { color: var(--on-surface-variant); font-size: 0.9rem; line-height: 1.55; }
-.panel-half  { grid-column: span 4; }
+/* Bento layout (12-col grid, six panels total):
+   Row 1: panel-feature (6) + panel-half (3) + panel-half (3) = 12
+   Row 2: panel-third  (4) + panel-third (4) + panel-third (4) = 12
+   So the feature tile owns half the width, two skinny "side" panels
+   flank it, and the bottom row is a clean equal-thirds line — no
+   orphan cards on a partial row. */
+.panel-half  { grid-column: span 3; }
 .panel-third { grid-column: span 4; }
 .panel-feature {
   grid-column: span 6; padding: 2.5rem;
@@ -640,19 +646,96 @@ nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
 }
 .lang-pill .flag { font-size: 1.125rem; }
 
-/* ── Footer ──────────────────────────────────────────────────────────── */
+/* ── Footer — black, 4-column ────────────────────────────────────────── */
 footer {
-  padding: 3rem 0 2.5rem;
-  border-top: 1px solid var(--ghost);
+  background: #0A0A0B;
+  color: rgba(255, 255, 255, 0.65);
+  padding: 4.5rem 0 2rem;
+  border-top: none;
+  margin-top: 4rem;
 }
-footer .container {
+footer .container { display: block; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.footer-brand .brand {
+  color: #FFFFFF;
+  font-size: 1.125rem;
+}
+.footer-brand .brand:hover { color: #FFFFFF; }
+.footer-brand .brand-mark {
+  background: linear-gradient(135deg, #3B82F6, #1E40AF);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+}
+.footer-brand p {
+  margin-top: 1.125rem;
+  max-width: 26rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.footer-social {
+  display: flex; gap: 0.625rem; margin-top: 1.25rem;
+}
+.footer-social a {
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px; font-weight: 700;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+.footer-social a:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+.footer-col h4 {
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 1.125rem;
+}
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.625rem; }
+.footer-col a {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .15s ease;
+}
+.footer-col a:hover { color: #FFFFFF; }
+.footer-bottom {
   display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 1rem;
+  flex-wrap: wrap; gap: 0.875rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.8125rem;
 }
-footer .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-footer .links a { color: var(--on-surface-variant); font-weight: 600; font-size: 0.875rem; }
-footer .links a:hover { color: var(--on-surface); }
-footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
+.footer-bottom .links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.footer-bottom .links a {
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  transition: color .15s ease;
+}
+.footer-bottom .links a:hover { color: #FFFFFF; }
+@media (max-width: 800px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-brand { grid-column: span 2; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: span 1; }
+  footer { padding: 3rem 0 1.5rem; }
+}
 
 /* ─────────────────────────────────────────────────────────────────────────
    RESPONSIVE
@@ -710,11 +793,9 @@ footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
   }
   [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
 
-  @keyframes floatY {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-8px); }
-  }
-  .hero-bento { animation: floatY 7s ease-in-out infinite; }
+  /* Hero-bento used to float on a 7s loop (floatY keyframes). Disabled
+     so the card sits still — the constant motion was distracting and
+     read as a "rotation" to viewers. */
 
   @keyframes pulseDot {
     0%, 100% { box-shadow: 0 0 0 0 rgba(26,86,219,0.50); }
@@ -1066,13 +1147,57 @@ footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
      ══════════════════════════════════════════════════════════════════════ -->
 <footer>
   <div class="container">
-    <div class="copy">© 2026 Gospelar · GOFAMINT Sunday School</div>
-    <div class="links">
-      <a href="/about">About</a>
-      <a href="https://register.gospelar.com/">Register for events</a>
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="mailto:askgospelars@gmail.com">Contact</a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand">
+          <span class="brand-mark">G</span>
+          <span>Gospelar</span>
+        </a>
+        <p>The official Gospelar Sunday School companion — weekly lessons, hymns and class management for students, teachers and church administrators across the global church family.</p>
+        <div class="footer-social">
+          <a href="https://facebook.com/gospelar" aria-label="Facebook" target="_blank" rel="noopener">f</a>
+          <a href="https://twitter.com/gospelar" aria-label="X (Twitter)" target="_blank" rel="noopener">𝕏</a>
+          <a href="https://instagram.com/gospelar" aria-label="Instagram" target="_blank" rel="noopener">ig</a>
+          <a href="https://youtube.com/@gospelar" aria-label="YouTube" target="_blank" rel="noopener">▶</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/app">Mobile app</a></li>
+          <li><a href="https://register.gospelar.com/">Event registration</a></li>
+          <li><a href="https://church.gospelar.com">Church dashboard</a></li>
+          <li><a href="https://admin.gospelar.com">Main admin</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="mailto:askgospelars@gmail.com">askgospelars@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy policy</a></li>
+          <li><a href="/terms">Terms of service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="copy">© 2026 Gospelar · GOFAMINT Sunday School. All rights reserved.</div>
+      <div class="links">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="mailto:askgospelars@gmail.com">Contact</a>
+      </div>
     </div>
   </div>
 </footer>
