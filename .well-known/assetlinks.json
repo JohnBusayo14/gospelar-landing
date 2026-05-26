@@ -11,5 +11,18 @@
         "D7:7A:AC:87:0E:E6:FF:BF:BC:C4:16:96:16:B2:F3:82:07:14:2A:A8:53:09:32:A1:28:C5:34:38:51:B9:0F:4F"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gospelar.app",
+      "sha256_cert_fingerprints": [
+        "B1:15:6C:08:76:DC:C4:3C:D0:0F:C9:05:4D:5C:26:7A:CD:5E:DD:20:FA:A5:18:A4:A8:BD:46:0B:AA:B8:49:BC"
+      ]
+    }
   }
 ]
