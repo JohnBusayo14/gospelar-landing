@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -10,226 +10,165 @@
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
-
+<meta name="theme-color" content="#1A56DB">
+<meta property="og:title" content="Privacy Policy — Gospelar">
+<meta property="og:description" content="How Gospelar handles your personal information.">
+<meta property="og:url" content="https://www.gospelar.com/privacy">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.gospelar.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --surface: #F5F8FC;
-  --surface-container-lowest: #FFFFFF;
-  --surface-container-low: #EFF4F8;
-  --on-surface: #0F172A;
-  --on-surface-variant: #475569;
-  --on-surface-muted: #64748B;
-  --ghost: rgba(15,23,42,0.07);
-  --ghost-strong: rgba(15,23,42,0.10);
-  --primary: #1A56DB;
-  --on-primary: #FFFFFF;
-  --primary-container: #1E40AF;
-  --primary-soft: rgba(26,86,219,0.10);
-  --secondary: #2563EB;
-  --tertiary-container: #E2E8F0;
-  --glass: rgba(255,255,255,0.70);
-  --glass-strong: rgba(255,255,255,0.86);
-  --glass-blur: 24px;
-  --shadow-1: 0 1px 3px rgba(15,23,42,0.04);
-  --shadow-2: 0 4px 16px rgba(15,23,42,0.06);
-  --shadow-blue: 0 14px 42px rgba(26,86,219,0.32);
-  --r-xs: 0.375rem; --r-sm: 0.625rem; --r: 1rem; --r-md: 1.25rem; --r-lg: 1.5rem; --r-pill: 9999px;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-*::selection { background: var(--primary-soft); color: var(--primary); }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-feature-settings: "ss01","ss02","cv11";
-  background: var(--surface);
-  color: var(--on-surface);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.7;
-  letter-spacing: -0.005em;
-  background-image:
-    radial-gradient(1100px 700px at 88% -10%, rgba(26,86,219,0.08), transparent 55%),
-    radial-gradient(700px 500px at 0% 60%, rgba(37,99,235,0.05), transparent 60%);
-  background-attachment: fixed;
-  min-height: 100vh;
-}
-a { color: var(--primary); text-decoration: none; transition: color .15s ease; }
-a:hover { color: var(--primary-container); text-decoration: underline; text-underline-offset: 3px; }
-
-.container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
-.container-wide { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-
-/* ── Nav (pill, glass) ───────────────────────────────────────────────── */
-nav.topnav { position: sticky; top: 0; z-index: 100; padding: 0.75rem 1.5rem; display: flex; justify-content: center; }
-nav.topnav .nav-pill {
-  display: flex; align-items: center; justify-content: space-between;
-  width: 100%; max-width: 1280px;
-  padding: 0.5rem 0.55rem 0.5rem 1.1rem;
-  background: var(--glass-strong);
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  border: 1px solid var(--ghost); border-radius: var(--r-pill);
-  box-shadow: var(--shadow-1);
-  transition: box-shadow .25s ease;
-}
-nav.topnav.scrolled .nav-pill { box-shadow: var(--shadow-2); }
-.brand { display: flex; align-items: center; gap: 0.625rem; font-weight: 800; letter-spacing: -0.015em; color: var(--on-surface); font-size: 1rem; }
-.brand:hover { color: var(--on-surface); text-decoration: none; }
-.brand-mark {
-  width: 32px; height: 32px; border-radius: 0.5rem;
-  background: linear-gradient(135deg, var(--primary), var(--primary-container));
-  color: var(--on-primary); display: grid; place-items: center;
-  font-weight: 900; font-size: 0.95rem; box-shadow: var(--shadow-blue);
-}
-.nav-links { display: flex; align-items: center; gap: 1.25rem; }
-.nav-links > a:not(.btn) { color: var(--on-surface-variant); font-weight: 600; font-size: 0.875rem; }
-.nav-links > a:not(.btn):hover { color: var(--on-surface); text-decoration: none; }
-.btn { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9375rem; border: 0; border-radius: var(--r-pill); cursor: pointer; padding: 0.85rem 1.6rem; transition: transform .25s cubic-bezier(.22,.61,.36,1); white-space: nowrap; font-family: 'Manrope', sans-serif; }
-.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-container)); color: var(--on-primary); box-shadow: var(--shadow-blue); }
-.btn-primary:hover { transform: scale(1.02); color: var(--on-primary); text-decoration: none; }
-
-/* ── Hero ────────────────────────────────────────────────────────────── */
-header.hero { padding: 4.5rem 0 2.5rem; text-align: center; }
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.45rem 0.9rem;
-  background: var(--primary-soft); color: var(--primary);
-  border: 1px solid var(--ghost); border-radius: var(--r-pill);
-  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 1.25rem;
-}
-.eyebrow .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
-header.hero h1 {
-  font-family: 'Manrope', sans-serif;
-  font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800;
-  letter-spacing: -0.025em; line-height: 1.1;
-  margin-bottom: 0.625rem;
-}
-header.hero .updated {
-  color: var(--on-surface-muted);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-}
-
-/* ── Document body card ──────────────────────────────────────────────── */
-main.body { padding: 1rem 0 4rem; }
-.doc {
-  background: var(--glass-strong);
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  border: 1px solid var(--ghost); border-radius: var(--r-lg);
-  padding: 3rem 2.5rem;
-  box-shadow: var(--shadow-1);
-}
-.doc > p:first-child {
-  font-size: 1.0625rem; line-height: 1.65;
-  color: var(--on-surface);
-  padding-bottom: 1.75rem;
-  margin-bottom: 1.75rem;
-  border-bottom: 1px solid var(--ghost);
-}
-.doc h2 {
-  font-family: 'Manrope', sans-serif;
-  font-size: 1.375rem; font-weight: 800;
-  letter-spacing: -0.012em;
-  margin: 2.25rem 0 0.875rem;
-  display: flex; align-items: center; gap: 0.625rem;
-}
-.doc h2 .num {
-  display: inline-grid; place-items: center;
-  width: 28px; height: 28px;
-  border-radius: var(--r-xs);
-  background: var(--primary-soft); color: var(--primary);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px; font-weight: 700;
-}
-.doc h3 {
-  font-family: 'Manrope', sans-serif;
-  font-size: 1.0625rem; font-weight: 700;
-  letter-spacing: -0.005em;
-  margin: 1.5rem 0 0.625rem;
-  color: var(--on-surface);
-}
-.doc p, .doc li {
-  color: var(--on-surface-variant);
-  font-size: 0.9375rem; line-height: 1.7;
-  margin-bottom: 0.625rem;
-}
-.doc strong { color: var(--on-surface); font-weight: 700; }
-.doc ul { padding-left: 1.5rem; margin-bottom: 1rem; }
-.doc ul li { margin-bottom: 0.4rem; }
-
-/* ── Footer ──────────────────────────────────────────────────────────── */
-footer { padding: 2.5rem 0; border-top: 1px solid var(--ghost); margin-top: 2rem; }
-footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; max-width: 1280px; }
-footer .copy { color: var(--on-surface-muted); font-size: 0.8125rem; }
-footer .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-footer .links a { color: var(--on-surface-variant); font-weight: 600; font-size: 0.875rem; }
-footer .links a:hover { color: var(--on-surface); text-decoration: none; }
-
-@media (max-width: 720px) {
-  .nav-links > a:not(.btn) { display: none; }
-  .doc { padding: 2rem 1.5rem; }
-  header.hero { padding: 3rem 0 1.5rem; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  [data-reveal] {
-    opacity: 0; transform: translateY(22px);
-    transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
-    transition-delay: var(--reveal-delay, 0s);
-  }
-  [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
-
-  @keyframes pulseDot {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(26,86,219,0.50); }
-    50%      { box-shadow: 0 0 0 6px rgba(26,86,219,0.00); }
-  }
-  .eyebrow .chip-dot { animation: pulseDot 2s ease-in-out infinite; }
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
+<a class="sr-only" href="#main">Skip to content</a>
 
-<nav class="topnav">
-  <div class="nav-pill">
-    <a href="/" class="brand">
-      <span class="brand-mark">G</span>
-      <span>Gospelar</span>
-    </a>
-    <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="/terms">Terms</a>
-      <a href="/app" class="btn btn-primary">Get the App</a>
+<div class="announce">
+  <span class="tag">New</span>The Holy Bible now reads offline in the Gospelar app — plus the Church Hymnal and Sunday School videos.
+  <a href="/app">Get the app <span class="arrow">→</span></a>
+</div>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="/" class="brand" aria-label="Gospelar home"><span class="brand-mark">G</span><span>Gospelar</span></a>
+
+    <nav class="nav-menu" aria-label="Main">
+      <div class="nav-item">
+        <button class="nav-trigger" aria-expanded="false" aria-haspopup="true">Product <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="dropdown mega" role="menu">
+          <a class="dd-link" href="/app">
+          <span class="dd-icon" style="background:#EAF1FF;color:#1A56DB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></span>
+          <span><span class="dd-title">Mobile app</span><span class="dd-sub" style="display:block">Lessons, hymns, Bible &amp; quizzes — free for students</span></span>
+        </a>
+          <a class="dd-link" href="/#platform">
+          <span class="dd-icon" style="background:#F1EDFF;color:#7C3AED"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <span><span class="dd-title">Library</span><span class="dd-sub" style="display:block">Sunday School manual, hymn books, Holy Bible</span></span>
+        </a>
+          <a class="dd-link" href="/#walkthrough">
+          <span class="dd-icon" style="background:#E6F7EF;color:#047857"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span><span class="dd-title">Teacher tools</span><span class="dd-sub" style="display:block">Attendance &amp; marks that work offline</span></span>
+        </a>
+          <a class="dd-link" href="https://church.gospelar.com">
+          <span class="dd-icon" style="background:#FFF4DB;color:#B45309"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-8"/></svg></span>
+          <span><span class="dd-title">Church dashboard</span><span class="dd-sub" style="display:block">Engagement across your congregation</span></span>
+        </a>
+          <a class="dd-link" href="https://register.gospelar.com/">
+          <span class="dd-icon" style="background:#FDECEF;color:#BE123C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg></span>
+          <span><span class="dd-title">Event registration</span><span class="dd-sub" style="display:block">Retreats, camps &amp; conventions</span></span>
+        </a>
+          <a class="dd-link" href="/#languages">
+          <span class="dd-icon" style="background:#E5F6FD;color:#0369A1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <span><span class="dd-title">Four languages</span><span class="dd-sub" style="display:block">English, Yorùbá, Igbo and Hausa</span></span>
+        </a>
+          <div class="dd-foot"><span>Free for students. Sign-in for teachers and church admins.</span><a class="link-arrow" href="/app">Get the app <span class="arrow">→</span></a></div>
+        </div>
+      </div>
+      <a class="nav-link" href="/#walkthrough">How it works</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <div class="nav-item hide-m">
+        <button class="nav-trigger" aria-expanded="false" aria-haspopup="true">Sign in <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="dropdown right" role="menu">
+          <a class="dd-link" href="https://church.gospelar.com">
+          <span class="dd-icon" style="background:#EAF1FF;color:#1A56DB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M10 4h4"/><path d="m6 10 6-4 6 4"/><path d="M6 10v12h12V10"/><path d="M10 22v-5a2 2 0 0 1 4 0v5"/><path d="M2 22h20"/></svg></span>
+          <span><span class="dd-title">Church admin</span><span class="dd-sub" style="display:block">Per-church insights &amp; classes</span></span>
+        </a>
+          <a class="dd-link" href="https://admin.gospelar.com">
+          <span class="dd-icon" style="background:#F1EDFF;color:#7C3AED"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span><span class="dd-title">Main admin</span><span class="dd-sub" style="display:block">Content, approvals &amp; system</span></span>
+        </a>
+          <a class="dd-link" href="https://register.gospelar.com/">
+          <span class="dd-icon" style="background:#FDECEF;color:#BE123C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg></span>
+          <span><span class="dd-title">Event registration</span><span class="dd-sub" style="display:block">Your tickets &amp; group bookings</span></span>
+        </a>
+        </div>
+      </div>
+      <a href="/app" class="btn btn-primary btn-sm hide-m">Get the app</a>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Open menu" aria-controls="mobile-menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
     </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="container">
-    <span class="eyebrow" data-reveal>
-      <span class="chip-dot"></span>
-      Legal
-    </span>
-    <h1 data-reveal style="--reveal-delay:.06s">Privacy Policy</h1>
-    <p class="updated" data-reveal style="--reveal-delay:.12s">Last updated · 7 May 2026</p>
   </div>
 </header>
 
-<main class="body">
-  <div class="container">
-    <article class="doc" data-reveal style="--reveal-delay:.18s">
+<div class="mobile-panel" id="mobile-menu">
+  <div class="m-group"><div class="m-label">Product</div>
+    <a class="dd-link" href="/app">
+          <span class="dd-icon" style="background:#EAF1FF;color:#1A56DB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></span>
+          <span><span class="dd-title">Mobile app</span><span class="dd-sub" style="display:block">Lessons, hymns, Bible &amp; quizzes — free for students</span></span>
+        </a>
+    <a class="dd-link" href="/#platform">
+          <span class="dd-icon" style="background:#F1EDFF;color:#7C3AED"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <span><span class="dd-title">Library</span><span class="dd-sub" style="display:block">Sunday School manual, hymn books, Holy Bible</span></span>
+        </a>
+    <a class="dd-link" href="/#walkthrough">
+          <span class="dd-icon" style="background:#E6F7EF;color:#047857"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span><span class="dd-title">Teacher tools</span><span class="dd-sub" style="display:block">Attendance &amp; marks that work offline</span></span>
+        </a>
+    <a class="dd-link" href="https://church.gospelar.com">
+          <span class="dd-icon" style="background:#FFF4DB;color:#B45309"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-5M12 16V8M17 16v-8"/></svg></span>
+          <span><span class="dd-title">Church dashboard</span><span class="dd-sub" style="display:block">Engagement across your congregation</span></span>
+        </a>
+    <a class="dd-link" href="https://register.gospelar.com/">
+          <span class="dd-icon" style="background:#FDECEF;color:#BE123C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg></span>
+          <span><span class="dd-title">Event registration</span><span class="dd-sub" style="display:block">Retreats, camps &amp; conventions</span></span>
+        </a>
+    <a class="dd-link" href="/#languages">
+          <span class="dd-icon" style="background:#E5F6FD;color:#0369A1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <span><span class="dd-title">Four languages</span><span class="dd-sub" style="display:block">English, Yorùbá, Igbo and Hausa</span></span>
+        </a>
+  </div>
+  <div class="m-group"><div class="m-label">Company</div>
+    <a class="dd-link" href="/#walkthrough"><span class="dd-title">How it works</span></a>
+    <a class="dd-link" href="/about"><span class="dd-title">About</span></a>
+    <a class="dd-link" href="/#contact"><span class="dd-title">Contact</span></a>
+  </div>
+  <div class="m-group"><div class="m-label">Sign in</div>
+    <a class="dd-link" href="https://church.gospelar.com">
+          <span class="dd-icon" style="background:#EAF1FF;color:#1A56DB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M10 4h4"/><path d="m6 10 6-4 6 4"/><path d="M6 10v12h12V10"/><path d="M10 22v-5a2 2 0 0 1 4 0v5"/><path d="M2 22h20"/></svg></span>
+          <span><span class="dd-title">Church admin</span><span class="dd-sub" style="display:block">Per-church insights &amp; classes</span></span>
+        </a>
+    <a class="dd-link" href="https://admin.gospelar.com">
+          <span class="dd-icon" style="background:#F1EDFF;color:#7C3AED"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span><span class="dd-title">Main admin</span><span class="dd-sub" style="display:block">Content, approvals &amp; system</span></span>
+        </a>
+  </div>
+  <div class="m-cta">
+    <a href="/app" class="btn btn-primary btn-lg">Get the app</a>
+    <a href="https://register.gospelar.com/" class="btn btn-outline btn-lg">Register for an event</a>
+  </div>
+</div>
 
+<main id="main">
+<section class="page-hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <span class="eyebrow" data-reveal style="--d:0s">Legal</span>
+    <h1 class="h-1" data-reveal style="--d:0.06s">Privacy Policy</h1>
+    <span class="updated-pill" data-reveal style="--d:0.12s"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg> Last updated · 7 May 2026</span>
+  </div>
+</section>
+<section class="section-tight" style="padding-top:8px">
+  <div class="container doc-layout">
+    <aside class="toc" aria-label="On this page">
+      <b>On this page</b>
+        <a href="#information-we-collect">1. Information we collect</a>
+        <a href="#how-we-use-your-information">2. How we use your information</a>
+        <a href="#where-your-data-is-stored">3. Where your data is stored</a>
+        <a href="#children-s-privacy">4. Children’s privacy</a>
+        <a href="#your-rights">5. Your rights</a>
+        <a href="#data-retention">6. Data retention</a>
+        <a href="#security">7. Security</a>
+        <a href="#changes-to-this-policy">8. Changes to this policy</a>
+        <a href="#contact-us">9. Contact us</a>
+    </aside>
+    <article class="doc">
       <p>This Privacy Policy describes how <strong>Gospelar</strong> ("we", "us", "our") — the official Gospelar Sunday School companion app published by The Gospel Faith Mission International — collects, uses, and protects your information when you use our mobile application and website at <a href="https://www.gospelar.com">gospelar.com</a>.</p>
 
-      <h2><span class="num">1</span>Information we collect</h2>
-
+      <h2 id="information-we-collect"><span class="n">1</span>Information we collect</h2>
       <h3>Information you give us</h3>
       <ul>
         <li><strong>Account info:</strong> your name, email address, and password (stored as a one-way bcrypt hash — we never see your real password).</li>
@@ -237,7 +176,6 @@ footer .links a:hover { color: var(--on-surface); text-decoration: none; }
         <li><strong>Church link:</strong> for teachers, the invite code your church admin gave you (used to associate your data with your church).</li>
         <li><strong>Subscription details:</strong> if you subscribe, your selected plan and category preferences.</li>
       </ul>
-
       <h3>Information generated by your use of the app</h3>
       <ul>
         <li><strong>Quiz scores and lesson completion records.</strong></li>
@@ -245,11 +183,10 @@ footer .links a:hover { color: var(--on-surface); text-decoration: none; }
         <li><strong>Language and category preferences.</strong></li>
         <li><strong>Device push-notification token,</strong> if you opt in to notifications.</li>
       </ul>
-
       <h3>Payment information</h3>
       <p>Payments are processed by <a href="https://paystack.com">Paystack</a>. We never see or store your card number, CVV, or PIN. Paystack returns a transaction reference and an amount, which we store alongside your subscription record.</p>
 
-      <h2><span class="num">2</span>How we use your information</h2>
+      <h2 id="how-we-use-your-information"><span class="n">2</span>How we use your information</h2>
       <ul>
         <li>To provide the core service: deliver lessons, save your progress, sync your teacher data, and process subscriptions.</li>
         <li>To allow your church admin to see anonymous engagement metrics for their congregation (e.g. "8 of 12 students completed this week's lesson"). Individual scores and attendance are visible only to your direct teacher and church admin.</li>
@@ -258,14 +195,14 @@ footer .links a:hover { color: var(--on-surface); text-decoration: none; }
       </ul>
       <p>We do <strong>not</strong> use your information for advertising, sell it to third parties, or share it outside the Gospelar ecosystem.</p>
 
-      <h2><span class="num">3</span>Where your data is stored</h2>
+      <h2 id="where-your-data-is-stored"><span class="n">3</span>Where your data is stored</h2>
       <p>Your data is stored on <strong>Supabase</strong> (PostgreSQL hosted in Europe) and accessed by our backend hosted on <strong>Railway</strong>. All connections use TLS encryption.</p>
 
-      <h2><span class="num">4</span>Children's privacy</h2>
+      <h2 id="children-s-privacy"><span class="n">4</span>Children’s privacy</h2>
       <p>Gospelar serves Sunday-School learners of all ages, including children. For users under 13, we collect only the minimum information needed for the app to function (display name, age-group category, lesson progress). We do not enable in-app messaging, do not display advertising, and do not share children's data with any third party.</p>
       <p>Parents or guardians can request deletion of a child's account at any time by emailing <a href="mailto:askgospelars@gmail.com">askgospelars@gmail.com</a>.</p>
 
-      <h2><span class="num">5</span>Your rights</h2>
+      <h2 id="your-rights"><span class="n">5</span>Your rights</h2>
       <p>You can:</p>
       <ul>
         <li>View and update your profile from the Settings screen in the app.</li>
@@ -275,53 +212,67 @@ footer .links a:hover { color: var(--on-surface); text-decoration: none; }
       </ul>
       <p>To exercise any of these rights, email <a href="mailto:askgospelars@gmail.com">askgospelars@gmail.com</a>. We respond within 30 days.</p>
 
-      <h2><span class="num">6</span>Data retention</h2>
+      <h2 id="data-retention"><span class="n">6</span>Data retention</h2>
       <p>We keep your account data for as long as your account is active. If you delete your account, we delete personally identifying information within 30 days. Anonymous, aggregated metrics (e.g. "150 lessons completed church-wide this month") may be retained.</p>
 
-      <h2><span class="num">7</span>Security</h2>
+      <h2 id="security"><span class="n">7</span>Security</h2>
       <p>Passwords are stored as bcrypt hashes. All API traffic is HTTPS-only. We restrict admin access to a small number of authorised personnel. No system is perfectly secure — if you discover a vulnerability, please report it to <a href="mailto:askgospelars@gmail.com">askgospelars@gmail.com</a>.</p>
 
-      <h2><span class="num">8</span>Changes to this policy</h2>
+      <h2 id="changes-to-this-policy"><span class="n">8</span>Changes to this policy</h2>
       <p>We may update this policy from time to time. The "Last updated" date at the top of this page reflects the most recent revision. Significant changes will be announced in the app.</p>
 
-      <h2><span class="num">9</span>Contact us</h2>
+      <h2 id="contact-us"><span class="n">9</span>Contact us</h2>
       <p>If you have questions about this policy, email <a href="mailto:askgospelars@gmail.com">askgospelars@gmail.com</a>.</p>
-
     </article>
   </div>
+</section>
 </main>
 
-<footer>
-  <div class="container container-wide">
-    <div class="copy">© 2026 Gospelar · Gospelar Sunday School</div>
-    <div class="links">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/terms">Terms</a>
-      <a href="/app">Get the App</a>
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-about">
+        <a href="/" class="brand"><span class="brand-mark">G</span><span>Gospelar</span></a>
+        <p>The official Gospelar Sunday School companion — weekly lessons, hymns and class management for students, teachers and church administrators across the global church family.</p>
+        <div class="foot-social">
+          <a href="https://www.facebook.com/share/1AEUUBRjdc/?mibextid=wwXIfr" aria-label="Facebook" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.07a10 10 0 1 0-11.56 9.88v-7H7.9v-2.88h2.54V9.86c0-2.5 1.5-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.88h-2.33v7A10 10 0 0 0 22 12.07Z"/></svg></a>
+          <a href="https://x.com/gospelar_app?s=21" aria-label="X (Twitter)" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2H21l-6.49 7.41L22 22h-6.797l-4.71-6.166L4.96 22H2.2l7-7.997L1.5 2h6.92l4.27 5.65L18.244 2Zm-1.18 18.32h1.654L7.012 3.6H5.243l11.821 16.72Z"/></svg></a>
+          <a href="https://www.instagram.com/gospelar_?igsh=MTBiNm9kcjQ4MDA0Mw%3D%3D&utm_source=qr" aria-label="Instagram" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://wa.me/27639272097" aria-label="WhatsApp" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.4 17.7L2 22l4.4-1.4A11 11 0 1 0 20.5 3.5Zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-2.6.8.8-2.6-.2-.3a9 9 0 1 1 7 3.7Zm5-6.7c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.2-.7.9-.9 1.1-.3.1-.6 0a7.3 7.3 0 0 1-3.6-3.2c-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.4-.5-.6-.5h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-1 2.3 5.4 5.4 0 0 0 1.1 2.8 12.1 12.1 0 0 0 4.7 4.1c2.8 1.1 2.8.7 3.3.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg></a>
+        </div>
+        <div class="foot-stores">
+          <a href="https://play.google.com/store/apps/details?id=com.gospelar.app" aria-label="Get it on Google Play"><img src="/images/web/google-play.png" alt="Get it on Google Play" loading="lazy"></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>Product</h4><ul>
+        <li><a href="/app">Mobile app</a></li>
+        <li><a href="/#platform">Library</a></li>
+        <li><a href="/#walkthrough">Teacher tools</a></li>
+        <li><a href="/#languages">Languages</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>For churches</h4><ul>
+        <li><a href="https://church.gospelar.com">Church dashboard</a></li>
+        <li><a href="https://register.gospelar.com/">Event registration</a></li>
+        <li><a href="https://admin.gospelar.com">Main admin</a></li>
+        <li><a href="mailto:askgospelars@gmail.com">Bring Gospelar to your church</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>Company</h4><ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="https://wa.me/27639272097" target="_blank" rel="noopener">WhatsApp us</a></li>
+      </ul></div>
+      <div class="foot-col"><h4>Legal</h4><ul>
+        <li><a href="/privacy">Privacy policy</a></li>
+        <li><a href="/terms">Terms of service</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-wordmark" aria-hidden="true">gospelar</div>
+    <div class="foot-bottom">
+      <div>© <span data-year>2026</span> Gospelar · GOFAMINT Sunday School. All rights reserved.</div>
+      <nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:askgospelars@gmail.com">askgospelars@gmail.com</a></nav>
     </div>
   </div>
 </footer>
-
-<script>
-  const revealIO = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
-          revealIO.unobserve(e.target);
-        }
-      }
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
-  );
-  document.querySelectorAll('[data-reveal]').forEach((el) => revealIO.observe(el));
-
-  const navEl = document.querySelector('nav.topnav');
-  const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
-  document.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-</script>
-
+<script src="/assets/site.js" defer></script>
 </body>
 </html>
